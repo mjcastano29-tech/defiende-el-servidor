@@ -6,8 +6,12 @@ from sklearn.preprocessing import FunctionTransformer, OneHotEncoder, StandardSc
 
 from src.data import CATEGORICAL
 
-# MLflow serializa con skops: las funciones propias del modelo deben declararse como confiables
-TRUSTED_TYPES = ["src.features.log1p_clip"]
+# MLflow serializa con skops: funciones propias y algunas clases internas de sklearn
+# deben declararse como confiables para poder guardar y cargar el modelo
+TRUSTED_TYPES = [
+    "src.features.log1p_clip",
+    "sklearn.ensemble._hist_gradient_boosting.predictor.TreePredictor",
+]
 
 
 def log1p_clip(X):
