@@ -4,6 +4,9 @@ Detección de ataques de red con machine learning sobre **UNSW-NB15**, con traza
 completa: Git (código y decisiones), DVC (datos y modelo), MLflow (experimentos y versiones
 del modelo) y Prefect (orquestación del pipeline).
 
+**Resultado:** gradient boosting (E6) con umbral 0,667 — en test detecta **96,9 %** de los ataques
+con **18,2 %** de falsas alarmas (5 % en validación); ver [decision_final.md](reports/decision_final.md).
+
 **Objetivo:** distinguir tráfico normal (`label=0`) de ataque (`label=1`) y elegir un umbral
 de alerta defendible.
 
@@ -12,6 +15,7 @@ de alerta defendible.
 | [reports/EDA.md](reports/EDA.md) | Estructura y contexto de los datos, hallazgos, decisiones de preparación |
 | [reports/experimentos.md](reports/experimentos.md) | Hipótesis, cambio, resultado y conclusión de cada experimento |
 | [reports/decision_final.md](reports/decision_final.md) | Modelo y umbral elegidos, errores, resultado del test, limitaciones |
+| [reports/analisis_post_hoc.csv](reports/analisis_post_hoc.csv) | Por qué la FPR de validación no se mantuvo en test (`scripts/analisis_post_hoc.py`) |
 | [data/README.md](data/README.md) | Fuente, versión, checksums y condiciones de uso de los datos |
 | [imagenes_eda/](imagenes_eda/) · [imagenes_resultados/](imagenes_resultados/) | Figuras listas para ver |
 
