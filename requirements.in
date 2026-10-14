@@ -1,0 +1,10 @@
+# Dependencias directas del proyecto (versiones exactas en requirements.txt)
+pandas
+numpy
+scikit-learn
+matplotlib
+seaborn
+jupyter
+dvc
+mlflow
+prefect

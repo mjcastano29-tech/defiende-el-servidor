@@ -1,0 +1,99 @@
+# Configuración única del proyecto. Cambiar algo aquí = nuevo experimento rastreable en Git.
+seed: 42
+
+data:
+  train: data/raw/UNSW_NB15_training-set.csv
+  test: data/raw/UNSW_NB15_testing-set.csv
+  # El docente advierte que algunas copias traen train/test intercambiados
+  expected_rows: {train: 175341, test: 82332}
+  processed_dir: data/processed
+
+split:
+  # Validación sale del train oficial: 1/val_folds de los grupos (≈20 %),
+  # agrupando filas con features idénticas para que las copias no crucen la partición.
+  val_folds: 5
+
+preprocessing:
+  # Categorías con menos de este % de filas se agrupan como "infrecuentes" (proto tiene cola larga)
+  min_frequency: 0.001
+
+alert:
+  # Política de alerta: maximizar ataques detectados (recall) sin alarmar más del
+  # 5 % de las conexiones normales. El umbral se elige en validación.
+  max_fpr: 0.05
+
+mlflow:
+  tracking_uri: sqlite:///mlflow/mlflow.db
+  artifact_dir: mlflow/artifacts
+  experiment: defiende-el-servidor
+  registered_model: defiende-el-servidor
+
+# Hipótesis escritas ANTES de entrenar. Cada experimento cambia una sola decisión
+# respecto al experimento con el que se compara (campo compare_to).
+experiments:
+  - name: E0_referencia
+    model: dummy
+    question: ¿Cuál es el piso que cualquier modelo debe superar?
+    change: Clasificador que ignora las variables y predice la prevalencia de train.
+    hypothesis: >-
+      No distingue clases. Con el umbral que respeta FPR<=5 % no detectará ningún
+      ataque (recall 0); con umbral 0.5 marcará todo como ataque (FPR 100 %).
+
+  - name: E1_logreg
+    model: logreg
+    compare_to: E0_referencia
+    question: ¿Un modelo lineal sencillo basta para separar tráfico normal de ataque?
+    change: Regresión logística sobre log1p + escalado + one-hot.
+    hypothesis: >-
+      Superará ampliamente la referencia (ROC-AUC > 0.95) porque variables como sttl
+      separan casi solas, pero las relaciones no lineales limitarán su recall con FPR<=5 %.
+
+  - name: E2_logreg_balanceada
+    model: logreg
+    class_weight: balanced
+    compare_to: E1_logreg
+    question: ¿Equilibrar las clases cambia los errores?
+    change: E1 con class_weight=balanced (más peso a la clase normal, minoritaria en train).
+    hypothesis: >-
+      Con umbral 0.5 bajará la tasa de falsos positivos a costa de recall; con el umbral
+      ajustado en validación la diferencia será pequeña, porque el reponderado sobre todo
+      desplaza el umbral.
+
+  - name: E3_hgb
+    model: hgb
+    compare_to: E1_logreg
+    question: ¿Aumentar la complejidad del modelo mejora el resultado?
+    change: Gradient boosting de árboles (HistGradientBoosting) con el mismo preprocesamiento que E1.
+    hypothesis: >-
+      Mejorará el recall con FPR<=5 % respecto a E1 porque captura interacciones y umbrales
+      en variables muy asimétricas (bytes, tasas, contadores ct_*).
+
+  - name: E4_hgb_sin_ttl
+    model: hgb
+    drop_features: [sttl, dttl, ct_state_ttl]
+    compare_to: E3_hgb
+    question: ¿Cuánto depende el modelo del atajo de TTL del laboratorio?
+    change: E3 sin las variables de TTL (sttl, dttl, ct_state_ttl).
+    hypothesis: >-
+      El rendimiento bajará, pero poco: el resto de variables de flujo contiene señal
+      suficiente. Si cae mucho, el modelo depende de una huella del laboratorio.
+
+  - name: E5_hgb_sin_duplicados
+    model: hgb
+    dedup: true
+    compare_to: E3_hgb
+    question: ¿Las filas repetidas ayudan o sesgan el entrenamiento?
+    change: E3 entrenado eliminando filas repetidas (mismas variables y etiqueta) del split de entrenamiento.
+    hypothesis: >-
+      Con 42 % menos filas el costo de entrenamiento baja mucho y el resultado en validación
+      apenas cambia, porque las copias no aportan información nueva.
+
+  - name: E6_hgb_complejo
+    model: hgb
+    hgb_params: {max_iter: 500, max_leaf_nodes: 63, learning_rate: 0.05}
+    compare_to: E3_hgb
+    question: ¿Más capacidad del mismo modelo compensa su costo?
+    change: E3 con más árboles (500), hojas más grandes (63) y tasa de aprendizaje menor.
+    hypothesis: >-
+      Mejora marginal (< 1 punto de recall) a cambio de varias veces más tiempo de
+      entrenamiento; el techo lo ponen las filas idénticas con etiqueta contradictoria.

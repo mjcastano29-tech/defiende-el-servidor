@@ -1,0 +1,11 @@
+# Datos, modelos y registros de MLflow se versionan con DVC (ver archivos *.dvc)
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.ipynb_checkpoints/
+
+# Locales
+.prefect/
+reports/predicciones*.csv
