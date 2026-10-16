@@ -74,7 +74,9 @@ SharePoint oficial de UNSW.
 ```bash
 # 1. Ejecutar el pipeline y observar sus estados en Prefect
 prefect server start                # en otra terminal; UI en http://127.0.0.1:4200
-python -m flows.pipeline
+prefect config set PREFECT_API_URL=http://127.0.0.1:4200/api   # una vez: que el flujo reporte a esa UI
+python -m flows.pipeline            # registra una nueva versión del modelo (misma selección y métricas)
+git add -A && git commit -m "Ejecución del pipeline"   # guarda las referencias DVC de esta ejecución
 
 # 2. Ver los experimentos y el modelo registrado en MLflow
 mlflow ui --backend-store-uri sqlite:///mlflow/mlflow.db    # http://127.0.0.1:5000
