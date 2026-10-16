@@ -7,7 +7,7 @@
 | Modelo | **E6_hgb_complejo**: `HistGradientBoostingClassifier` (500 iteraciones máx., 63 hojas, lr 0,05) sobre log1p + escalado + one-hot |
 | Umbral de alerta | **0,667** (probabilidad de ataque ≥ 0,667 → alerta) |
 | Criterio | máximo recall en validación con FPR ≤ 5 %; desempate macro-F1 (fijado antes de entrenar) |
-| Versión | MLflow Model Registry `defiende-el-servidor` **v1**, alias `champion`; ejecución `b1caa19139d54c2ea08d8984bcbb0399` |
+| Versión | MLflow Model Registry `defiende-el-servidor` **v2**, alias `champion`; ejecución `57c140b1295447d89be9c3bac0e75c58` (commit `450942b`). La v1 (ejecución `b1caa191…`, commit `80cdc99`) es la primera corrida: misma selección y métricas idénticas, lo que confirma que el pipeline es reproducible |
 | Copia exportada | `models/final/` (versionada con DVC, `models/final.dvc`) + `metadata.json` con umbral, commit y SHA-256 de los datos |
 | Elección congelada | [seleccion.json](seleccion.json) |
 

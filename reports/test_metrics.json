@@ -1,7 +1,7 @@
 {
   "selection": {
     "experiment": "E6_hgb_complejo",
-    "run_id": "b1caa19139d54c2ea08d8984bcbb0399",
+    "run_id": "57c140b1295447d89be9c3bac0e75c58",
     "threshold": 0.6673794060957008,
     "criterion": "max recall en validación con FPR <= 0.05; desempate macro-F1",
     "val_recall": 0.9522389331515487,
@@ -97,5 +97,5 @@
       "marcadas_como_ataque": 1.0
     }
   ],
-  "git_commit": "80cdc9925e7af1d1c1aef0696b019995923ab0c5"
+  "git_commit": "450942b1d585d0e601610a507eaa877fabd1ce3c"
 }
