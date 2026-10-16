@@ -1,6 +1,5 @@
 """Comparación en validación, evaluación única en test, registro y exportación del modelo."""
 import json
-import shutil
 
 import matplotlib
 
@@ -10,10 +9,9 @@ import mlflow
 import pandas as pd
 from mlflow import MlflowClient
 
-from src.config import MODEL_DIR, REPORTS, RESULT_FIGURES, ROOT, git_commit
+from src.config import REPORTS, RESULT_FIGURES, git_commit
 from src.data import FAMILY, TARGET, load_split
 from src.metrics import metrics_at, ranking_metrics
-from src.features import TRUSTED_TYPES
 from src.train import predict_scores, setup_mlflow
 
 SELECTION_FILE = REPORTS / "seleccion.json"
@@ -84,8 +82,10 @@ def evaluate_test(selection: dict, params: dict) -> dict:
     return result
 
 
-def register_and_export(selection: dict, params: dict) -> dict:
-    """Registra la versión en el Model Registry (alias champion) y la exporta a models/final."""
+def register(selection: dict, params: dict) -> dict:
+    """Registra el run elegido en el Model Registry local (alias champion).
+
+    Las versiones entregadas (v1/v2) se empaquetan aparte con `python -m src.package`."""
     setup_mlflow(params)
     name = params["mlflow"]["registered_model"]
     mv = mlflow.register_model(f"runs:/{selection['run_id']}/model", name)
@@ -93,21 +93,8 @@ def register_and_export(selection: dict, params: dict) -> dict:
     client.set_registered_model_alias(name, "champion", mv.version)
     for k in ("experiment", "threshold", "criterion"):
         client.set_model_version_tag(name, mv.version, k, str(selection[k]))
-
-    model = mlflow.sklearn.load_model(f"runs:/{selection['run_id']}/model")
-    if MODEL_DIR.exists():
-        shutil.rmtree(MODEL_DIR)
-    MODEL_DIR.parent.mkdir(parents=True, exist_ok=True)
-    mlflow.sklearn.save_model(model, str(MODEL_DIR), skops_trusted_types=TRUSTED_TYPES)
-    meta = {
-        "registered_model": name, "version": int(mv.version), "alias": "champion",
-        "run_id": selection["run_id"], "experiment": selection["experiment"],
-        "threshold": selection["threshold"], "git_commit": git_commit(),
-        "data_sha256": json.loads((ROOT / params["data"]["processed_dir"] / "split_stats.json")
-                                  .read_text())["source_sha256"],
-    }
-    (MODEL_DIR / "metadata.json").write_text(json.dumps(meta, indent=2), encoding="utf-8")
-    return meta
+    return {"registered_model": name, "version": int(mv.version), "run_id": selection["run_id"],
+            "experiment": selection["experiment"], "threshold": selection["threshold"], "git_commit": git_commit()}
 
 
 def _plot_validation(table: pd.DataFrame, params: dict) -> None:

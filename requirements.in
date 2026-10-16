@@ -8,3 +8,4 @@ jupyter
 dvc
 mlflow
 prefect
+huggingface_hub

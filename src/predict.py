@@ -1,51 +1,70 @@
-"""Carga una versión guardada del modelo y genera predicciones.
+"""Carga una versión empaquetada del modelo y genera predicciones.
 
 Ejemplos:
-  python -m src.predict --input data/raw/UNSW_NB15_testing-set.csv --output reports/predicciones.csv
+  python -m src.predict --model models/v2 --input data/raw/UNSW_NB15_testing-set.csv --output pred.csv
+  python -m src.predict --model hf://<usuario>/defiende-el-servidor@<SHA> --input entrada.csv --output pred.csv
   python -m src.predict --model "models:/defiende-el-servidor@champion" --input ... --output ...
-  python -m src.predict --model "models:/defiende-el-servidor/1" --input ... --output ...
+
+Salida: row_id, [y_true], score_attack, y_pred  (y_pred = 1 si score_attack >= umbral de la versión).
 """
 import argparse
 import json
+from pathlib import Path
 
 import mlflow
 import pandas as pd
 
-from src.config import MODEL_DIR, load_params
-from src.data import read_raw
+from src.config import ROOT, load_params
+from src.data import ID, TARGET, read_raw
 from src.train import predict_scores, setup_mlflow
 
 
-def load(model_uri: str):
-    """Devuelve (modelo, umbral, descripción de la versión)."""
-    if model_uri.startswith("models:/"):
+def load(model_ref: str):
+    """Devuelve (modelo, umbral, descripción). Acepta carpeta de versión, hf://repo@SHA o models:/."""
+    if model_ref.startswith("models:/"):
         setup_mlflow(load_params())
-        name, ref = model_uri.removeprefix("models:/").replace("@", "/").split("/", 1)
+        name, ref = model_ref.removeprefix("models:/").replace("@", "/").split("/", 1)
         client = mlflow.MlflowClient()
-        mv = (client.get_model_version_by_alias(name, ref) if "@" in model_uri
+        mv = (client.get_model_version_by_alias(name, ref) if "@" in model_ref
               else client.get_model_version(name, ref))
-        return mlflow.sklearn.load_model(model_uri), float(mv.tags["threshold"]), f"{name} v{mv.version}"
-    meta = json.loads((MODEL_DIR / "metadata.json").read_text(encoding="utf-8"))
-    return (mlflow.sklearn.load_model(model_uri), float(meta["threshold"]),
-            f"{meta['registered_model']} v{meta['version']} ({model_uri})")
+        return mlflow.sklearn.load_model(model_ref), float(mv.tags["threshold"]), f"{name} v{mv.version}"
+    if model_ref.startswith("hf://"):
+        from huggingface_hub import snapshot_download
+        repo, _, revision = model_ref.removeprefix("hf://").partition("@")
+        folder = Path(snapshot_download(repo, revision=revision or None))
+        label = f"hf://{repo}@{revision or 'main'}"
+    else:
+        folder = Path(model_ref)
+        label = str(folder)
+    cfg = json.loads((folder / "config.json").read_text(encoding="utf-8"))
+    model = mlflow.sklearn.load_model(str(folder / "model"))
+    return model, float(cfg["threshold"]), f"{cfg['version']} ({cfg['experiment']}) · {label}"
+
+
+def predict_frame(model, threshold: float, df: pd.DataFrame, source: str) -> pd.DataFrame:
+    score = predict_scores(model, df)
+    ids = df[ID] if ID in df else pd.Series(range(1, len(df) + 1))
+    out = pd.DataFrame({"row_id": [f"{source}#id={i}" for i in ids]})
+    if TARGET in df:
+        out["y_true"] = df[TARGET].to_numpy()
+    out["score_attack"] = score
+    out["y_pred"] = (score >= threshold).astype(int)
+    return out
 
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--model", default=str(MODEL_DIR), help="ruta local o URI models:/nombre@alias|/versión")
+    ap.add_argument("--model", default=str(ROOT / "models" / "v2"),
+                    help="carpeta de versión (models/v1, models/v2), hf://usuario/repo@SHA o models:/nombre@alias")
     ap.add_argument("--input", required=True, help="CSV con las columnas de UNSW-NB15")
     ap.add_argument("--output", required=True)
     args = ap.parse_args()
 
     model, threshold, version = load(args.model)
-    df = read_raw(args.input)
-    score = predict_scores(model, df)
-    out = pd.DataFrame({"prob_ataque": score.round(6), "alerta": (score >= threshold).astype(int)})
-    if "id" in df:
-        out.insert(0, "id", df["id"])
-    out.to_csv(args.output, index=False)
-    print(f"Modelo {version} · umbral {threshold:.4f} · {len(out):,} filas · "
-          f"{out['alerta'].mean():.1%} alertas → {args.output}")
+    out = predict_frame(model, threshold, read_raw(args.input), Path(args.input).name)
+    out.to_csv(args.output, index=False, float_format="%.10f")
+    print(f"Modelo {version} · umbral {threshold:.6f} · {len(out):,} filas · "
+          f"{out['y_pred'].mean():.1%} alertas → {args.output}")
 
 
 if __name__ == "__main__":

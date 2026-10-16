@@ -52,8 +52,8 @@ def evaluar_test(selection: dict, params: dict) -> dict:
 
 @task(name="registrar-modelo")
 def registrar(selection: dict, params: dict) -> dict:
-    meta = evaluate.register_and_export(selection, params)
-    get_run_logger().info("Registrado %s v%s (alias champion) y exportado a models/final",
+    meta = evaluate.register(selection, params)
+    get_run_logger().info("Registrado %s v%s (alias champion)",
                           meta["registered_model"], meta["version"])
     return meta
 
@@ -61,7 +61,7 @@ def registrar(selection: dict, params: dict) -> dict:
 @task(name="versionar-dvc")
 def versionar_dvc() -> None:
     log = get_run_logger()
-    for cmd in (["add", "data/processed", "models/final", "mlflow"], ["push"]):
+    for cmd in (["add", "data/processed", "mlflow"], ["push"]):
         p = subprocess.run([sys.executable, "-m", "dvc", *cmd], cwd=ROOT, capture_output=True, text=True)
         if p.returncode != 0:
             raise RuntimeError(f"dvc {' '.join(cmd)} falló:\n{p.stderr or p.stdout}")

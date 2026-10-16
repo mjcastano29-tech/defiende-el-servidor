@@ -6,7 +6,6 @@ import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
 REPORTS = ROOT / "reports"
-MODEL_DIR = ROOT / "models" / "final"
 RESULT_FIGURES = ROOT / "imagenes_resultados"
 
 

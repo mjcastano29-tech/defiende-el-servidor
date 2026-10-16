@@ -1,0 +1,27 @@
+# Las dos soluciones entregadas. Cada una apunta a un run de MLflow ya entrenado
+# (pipeline ejecutado en el commit 80cdc99, 2026-10-14) y se empaqueta copiando
+# EXACTAMENTE el artefacto registrado en ese run, para que el hash del modelo sea el mismo
+# en MLflow, en DVC (models/<versión>) y en Hugging Face.
+hf_repo: defiende-el-servidor          # repo de modelos en Hugging Face: <usuario>/<hf_repo>
+
+versions:
+  v1:
+    experiment: E1_logreg
+    run_id: ad45444b57f342e7b7df102aa9898abc
+    family: lineal (regresión logística)
+    summary: >-
+      Primera solución funcional: regresión logística sobre log1p + escalado + one-hot,
+      umbral elegido en validación para FPR <= 5 %.
+    change_from_previous: Primera versión; supera la referencia E0 (recall 0 con FPR <= 5 %).
+
+  v2:
+    experiment: E6_hgb_complejo
+    run_id: b1caa19139d54c2ea08d8984bcbb0399
+    family: árboles (HistGradientBoosting)
+    summary: >-
+      Revisión basada en los experimentos: gradient boosting de árboles (500 iteraciones máx.,
+      63 hojas, lr 0.05) con el mismo preprocesamiento, umbral elegido en validación para FPR <= 5 %.
+    change_from_previous: >-
+      Cambio de familia de modelo (lineal -> árboles) y de hiperparámetros, respaldado por E3
+      (+4.2 puntos de recall frente a E1 con la misma FPR) y E6 (+0.5 puntos más). Mismos datos,
+      mismas particiones y misma política de umbral.

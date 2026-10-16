@@ -56,6 +56,20 @@ def validate(df: pd.DataFrame, name: str, expected_rows: int) -> None:
         raise DataValidationError(f"{name}: " + "; ".join(problems))
 
 
+def split_indices(train: pd.DataFrame, params: dict) -> tuple[np.ndarray, np.ndarray]:
+    """Posiciones (0-based) de las filas del train oficial que van a entrenamiento y a validación.
+
+    Agrupa por filas con variables predictoras idénticas: ningún grupo queda repartido."""
+    groups = row_hash(train, feature_columns(train))
+    splitter = StratifiedGroupKFold(n_splits=params["split"]["val_folds"], shuffle=True,
+                                    random_state=params["seed"])
+    tr_idx, va_idx = next(splitter.split(train, train[TARGET], groups))
+    shared = set(groups.iloc[tr_idx]) & set(groups.iloc[va_idx])
+    if shared:
+        raise DataValidationError(f"{len(shared)} grupos de filas idénticas cruzan train/validación")
+    return tr_idx, va_idx
+
+
 def prepare(params: dict) -> dict:
     """Valida los CSV, separa train/validación agrupando copias y guarda parquet."""
     cfg = params["data"]
@@ -69,12 +83,7 @@ def prepare(params: dict) -> dict:
 
     feats = feature_columns(train)
     groups = row_hash(train, feats)
-    splitter = StratifiedGroupKFold(n_splits=params["split"]["val_folds"], shuffle=True,
-                                    random_state=params["seed"])
-    tr_idx, va_idx = next(splitter.split(train, train[TARGET], groups))
-    shared = set(groups.iloc[tr_idx]) & set(groups.iloc[va_idx])
-    if shared:
-        raise DataValidationError(f"{len(shared)} grupos de filas idénticas cruzan train/validación")
+    tr_idx, va_idx = split_indices(train, params)
 
     keep = feats + [TARGET, FAMILY]  # se descarta id: es el número de fila de un archivo ordenado
     tr, va, te = train.iloc[tr_idx][keep], train.iloc[va_idx][keep], test[keep].copy()
