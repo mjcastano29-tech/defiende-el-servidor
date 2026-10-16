@@ -1,0 +1,298 @@
+{
+  "generado": "2026-10-16T23:26:52+00:00",
+  "fuentes": {
+    "pagina_oficial": "https://research.unsw.edu.au/projects/unsw-nb15-dataset",
+    "descarga_oficial": "SharePoint UNSW, carpeta 'UNSW-NB15 dataset/CSV Files/Training and Testing Sets' (última modificación 2024-02-09), API REST anónima",
+    "mirror_docente": "https://raw.githubusercontent.com/Nir-J/ML-Projects/44bbd02b9e70f74dd915218d5eb702f125341ffc/UNSW-Network_Packet_Classification/",
+    "fecha_descarga": "2026-10-02",
+    "verificacion": "Mirror y descarga oficial idénticos byte a byte (mismo SHA-256); coinciden con el anexo.",
+    "atribucion": "Moustafa, N. & Slay, J. (2015). UNSW-NB15. MilCIS, IEEE. Uso académico."
+  },
+  "archivos": [
+    {
+      "archivo": "UNSW_NB15_training-set.csv",
+      "sha256": "bec7dd5ec88dc2a0ccc7a07879d338395ed7421750f675fd0339e07dfe0648fa",
+      "sha256_anexo_taller": "bec7dd5ec88dc2a0ccc7a07879d338395ed7421750f675fd0339e07dfe0648fa",
+      "coincide_con_anexo": true,
+      "bytes": 32293018,
+      "filas": 175341,
+      "columnas": 45,
+      "encoding": "utf-8 con BOM (leer con utf-8-sig)",
+      "tipos": {
+        "id": "int64",
+        "dur": "float64",
+        "proto": "object",
+        "service": "object",
+        "state": "object",
+        "spkts": "int64",
+        "dpkts": "int64",
+        "sbytes": "int64",
+        "dbytes": "int64",
+        "rate": "float64",
+        "sttl": "int64",
+        "dttl": "int64",
+        "sload": "float64",
+        "dload": "float64",
+        "sloss": "int64",
+        "dloss": "int64",
+        "sinpkt": "float64",
+        "dinpkt": "float64",
+        "sjit": "float64",
+        "djit": "float64",
+        "swin": "int64",
+        "stcpb": "int64",
+        "dtcpb": "int64",
+        "dwin": "int64",
+        "tcprtt": "float64",
+        "synack": "float64",
+        "ackdat": "float64",
+        "smean": "int64",
+        "dmean": "int64",
+        "trans_depth": "int64",
+        "response_body_len": "int64",
+        "ct_srv_src": "int64",
+        "ct_state_ttl": "int64",
+        "ct_dst_ltm": "int64",
+        "ct_src_dport_ltm": "int64",
+        "ct_dst_sport_ltm": "int64",
+        "ct_dst_src_ltm": "int64",
+        "is_ftp_login": "int64",
+        "ct_ftp_cmd": "int64",
+        "ct_flw_http_mthd": "int64",
+        "ct_src_ltm": "int64",
+        "ct_srv_dst": "int64",
+        "is_sm_ips_ports": "int64",
+        "attack_cat": "object",
+        "label": "int64"
+      },
+      "clases_label": {
+        "0": 56000,
+        "1": 119341
+      },
+      "tasa_ataque": 0.680622,
+      "attack_cat": {
+        "Normal": 56000,
+        "Generic": 40000,
+        "Exploits": 33393,
+        "Fuzzers": 18184,
+        "DoS": 12264,
+        "Reconnaissance": 10491,
+        "Analysis": 2000,
+        "Backdoor": 1746,
+        "Shellcode": 1133,
+        "Worms": 130
+      },
+      "faltantes_nan_total": 0,
+      "faltantes_codificados": {
+        "service == '-'": 94168
+      },
+      "id_unico_y_consecutivo": true
+    },
+    {
+      "archivo": "UNSW_NB15_testing-set.csv",
+      "sha256": "734fe6642edf758f7c94d7d9149426b49d202fe8e7bf0bef47392489c3c0a559",
+      "sha256_anexo_taller": "734fe6642edf758f7c94d7d9149426b49d202fe8e7bf0bef47392489c3c0a559",
+      "coincide_con_anexo": true,
+      "bytes": 15380800,
+      "filas": 82332,
+      "columnas": 45,
+      "encoding": "utf-8 con BOM (leer con utf-8-sig)",
+      "tipos": {
+        "id": "int64",
+        "dur": "float64",
+        "proto": "object",
+        "service": "object",
+        "state": "object",
+        "spkts": "int64",
+        "dpkts": "int64",
+        "sbytes": "int64",
+        "dbytes": "int64",
+        "rate": "float64",
+        "sttl": "int64",
+        "dttl": "int64",
+        "sload": "float64",
+        "dload": "float64",
+        "sloss": "int64",
+        "dloss": "int64",
+        "sinpkt": "float64",
+        "dinpkt": "float64",
+        "sjit": "float64",
+        "djit": "float64",
+        "swin": "int64",
+        "stcpb": "int64",
+        "dtcpb": "int64",
+        "dwin": "int64",
+        "tcprtt": "float64",
+        "synack": "float64",
+        "ackdat": "float64",
+        "smean": "int64",
+        "dmean": "int64",
+        "trans_depth": "int64",
+        "response_body_len": "int64",
+        "ct_srv_src": "int64",
+        "ct_state_ttl": "int64",
+        "ct_dst_ltm": "int64",
+        "ct_src_dport_ltm": "int64",
+        "ct_dst_sport_ltm": "int64",
+        "ct_dst_src_ltm": "int64",
+        "is_ftp_login": "int64",
+        "ct_ftp_cmd": "int64",
+        "ct_flw_http_mthd": "int64",
+        "ct_src_ltm": "int64",
+        "ct_srv_dst": "int64",
+        "is_sm_ips_ports": "int64",
+        "attack_cat": "object",
+        "label": "int64"
+      },
+      "clases_label": {
+        "0": 37000,
+        "1": 45332
+      },
+      "tasa_ataque": 0.5506,
+      "attack_cat": {
+        "Normal": 37000,
+        "Generic": 18871,
+        "Exploits": 11132,
+        "Fuzzers": 6062,
+        "DoS": 4089,
+        "Reconnaissance": 3496,
+        "Analysis": 677,
+        "Backdoor": 583,
+        "Shellcode": 378,
+        "Worms": 44
+      },
+      "faltantes_nan_total": 0,
+      "faltantes_codificados": {
+        "service == '-'": 47153
+      },
+      "id_unico_y_consecutivo": true
+    }
+  ],
+  "duplicados": {
+    "train": {
+      "criterio": "filas con las 42 variables predictoras idénticas (sin id, label ni attack_cat)",
+      "filas_duplicadas": 74301,
+      "pct_duplicadas": 42.38,
+      "entradas_unicas": 101040,
+      "grupos_con_etiqueta_contradictoria": 229,
+      "filas_en_grupos_contradictorios": 940
+    },
+    "test": {
+      "criterio": "filas con las 42 variables predictoras idénticas (sin id, label ni attack_cat)",
+      "filas_duplicadas": 28386,
+      "pct_duplicadas": 34.48,
+      "entradas_unicas": 53946,
+      "grupos_con_etiqueta_contradictoria": 6,
+      "filas_en_grupos_contradictorios": 14
+    }
+  },
+  "politica_limpieza": [
+    "No se elimina ninguna fila ni del entrenamiento ni del test (población completa).",
+    "Duplicados y grupos contradictorios se conservan; se impide su fuga agrupando el split por entradas idénticas.",
+    "El experimento E5 mide el efecto de deduplicar el split de entrenamiento (sin cambiar validación).",
+    "service='-' (servicio no identificado) se trata como categoría propia, no como faltante a imputar.",
+    "Categorías raras (<0,1 %) o no vistas (p. ej. state ACC/CLO solo en test) → columna 'infrecuente'."
+  ],
+  "variables": {
+    "usadas": [
+      "dur",
+      "proto",
+      "service",
+      "state",
+      "spkts",
+      "dpkts",
+      "sbytes",
+      "dbytes",
+      "rate",
+      "sttl",
+      "dttl",
+      "sload",
+      "dload",
+      "sloss",
+      "dloss",
+      "sinpkt",
+      "dinpkt",
+      "sjit",
+      "djit",
+      "swin",
+      "stcpb",
+      "dtcpb",
+      "dwin",
+      "tcprtt",
+      "synack",
+      "ackdat",
+      "smean",
+      "dmean",
+      "trans_depth",
+      "response_body_len",
+      "ct_srv_src",
+      "ct_state_ttl",
+      "ct_dst_ltm",
+      "ct_src_dport_ltm",
+      "ct_dst_sport_ltm",
+      "ct_dst_src_ltm",
+      "is_ftp_login",
+      "ct_ftp_cmd",
+      "ct_flw_http_mthd",
+      "ct_src_ltm",
+      "ct_srv_dst",
+      "is_sm_ips_ports"
+    ],
+    "n_usadas": 42,
+    "categoricas": [
+      "proto",
+      "service",
+      "state"
+    ],
+    "excluidas": {
+      "label": "respuesta",
+      "attack_cat": "revela la respuesta (Normal <=> label 0)",
+      "id": "número de fila de un archivo ordenado por clase; solo para auditoría y row_id"
+    }
+  },
+  "particiones": {
+    "semilla": 42,
+    "metodo": "StratifiedGroupKFold(n_splits=5, shuffle=True, random_state=42) sobre el archivo de entrenamiento; grupos = hash de las 42 variables; se usa el primer pliegue como validación",
+    "tamanos": {
+      "train": 140779,
+      "val": 34562,
+      "test": 82332
+    },
+    "tasa_ataque": {
+      "train": 0.681,
+      "val": 0.6791,
+      "test": 0.5506
+    },
+    "huellas_asignacion_sha256": {
+      "train": "166c44c0d4b0ad85f07e2fe83a1d6fc3f4b3e82a99e51fe60aafb407514be7c2",
+      "val": "5f23ec52966be29688a334b55c916351c15f2f939d436f864b9d0a50f5e5d134"
+    },
+    "huellas_parquet_sha256": {
+      "train": "8ade780aaae247e50bcdeeee5c455397782c23dff0101ed72ee21337f5b398ad",
+      "val": "d1f3ba61b25ed9daf8c5f819640e5f15e72a4aced330719cf3ab60217f6daeef",
+      "test": "f267248a1f7f02e390e95519f640a5842227606676da2fea0c1c814128434755"
+    },
+    "dvc": {
+      "data/raw.dvc": "ec34e6c98cfc4117e0b89a111496a0cb.dir",
+      "data/processed.dvc": "f6c1bfa06596c6aaafc11b20e90df2e3.dir"
+    },
+    "asignacion_por_fila": "evidencias/asignacion_splits.csv",
+    "transformacion": "src/data.py:prepare — valida filas/columnas, descarta id, separa train/val, marca filas de test vistas en train y escribe parquet"
+  },
+  "cruces_entre_particiones": {
+    "grupos_compartidos_train_val": 0,
+    "filas_test_con_entrada_en_train": 6720,
+    "filas_test_con_entrada_en_val": 1821,
+    "filas_test_con_entrada_en_train_o_val": 8541,
+    "pct_test_solapado": 10.37,
+    "categorias_test_no_vistas_en_train": {
+      "proto": [],
+      "service": [],
+      "state": [
+        "ACC",
+        "CLO"
+      ]
+    },
+    "nota": "El test no se modifica; el solapamiento se reporta y se mide su efecto en metricas-test.json."
+  }
+}

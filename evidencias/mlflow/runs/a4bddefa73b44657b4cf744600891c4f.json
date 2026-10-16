@@ -1,0 +1,78 @@
+{
+  "run_id": "a4bddefa73b44657b4cf744600891c4f",
+  "run_name": "E0_referencia",
+  "experiment_id": "1",
+  "status": "FINISHED",
+  "start_time_utc": "2026-10-14T22:56:22.350000+00:00",
+  "end_time_utc": "2026-10-14T22:56:34.861000+00:00",
+  "conjunto": "canonico",
+  "params": {
+    "model": "dummy",
+    "class_weight": "None",
+    "dropped_features": "-",
+    "dedup": "False",
+    "n_train": "140779",
+    "n_val": "34562",
+    "n_features": "42",
+    "seed": "42",
+    "max_fpr": "0.05",
+    "train_hash": "3816661056601085293"
+  },
+  "metrics": {
+    "val_recall": 0.0,
+    "val_precision": 0.0,
+    "val_fpr": 0.0,
+    "val_macro_f1": 0.2429413182047182,
+    "val_accuracy": 0.32090156819628496,
+    "val_tp": 0.0,
+    "val_fp": 0.0,
+    "val_tn": 11091.0,
+    "val_fn": 23471.0,
+    "val05_recall": 1.0,
+    "val05_precision": 0.6790984318037151,
+    "val05_fpr": 1.0,
+    "val05_macro_f1": 0.40444230007064946,
+    "val05_accuracy": 0.6790984318037151,
+    "val05_tp": 23471.0,
+    "val05_fp": 11091.0,
+    "val05_tn": 0.0,
+    "val05_fn": 0.0,
+    "val_roc_auc": 0.5,
+    "val_pr_auc": 0.6790984318037151,
+    "threshold": 1.000000001,
+    "fit_seconds": 0.5514341130000275
+  },
+  "tags": {
+    "mlflow.user": "mjcas",
+    "mlflow.source.name": "/home/mjcas/code/ciberseguridad/flows/pipeline.py",
+    "mlflow.source.type": "LOCAL",
+    "mlflow.source.git.commit": "80cdc9925e7af1d1c1aef0696b019995923ab0c5",
+    "mlflow.source.git.branch": "main",
+    "mlflow.source.git.repoURL": "https://github.com/mjcastano29-tech/defiende-el-servidor.git",
+    "mlflow.runName": "E0_referencia",
+    "question": "¿Cuál es el piso que cualquier modelo debe superar?",
+    "change": "Clasificador que ignora las variables y predice la prevalencia de train.",
+    "hypothesis": "No distingue clases. Con el umbral que respeta FPR<=5 % no detectará ningún ataque (recall 0); con umbral 0.5 marcará todo como ataque (FPR 100 %).",
+    "compare_to": "-",
+    "git_commit": "80cdc9925e7af1d1c1aef0696b019995923ab0c5"
+  },
+  "inputs": [
+    {
+      "name": "train",
+      "digest": "70a5b6e0",
+      "source": "{\"uri\": \"/home/mjcas/code/ciberseguridad/data/processed/train.parquet\"}",
+      "context": [
+        "training"
+      ]
+    },
+    {
+      "name": "val",
+      "digest": "cc8dca2c",
+      "source": "{\"uri\": \"/home/mjcas/code/ciberseguridad/data/processed/val.parquet\"}",
+      "context": [
+        "validation"
+      ]
+    }
+  ],
+  "logged_model_id": "m-b8a78099fc544a54a8801727efba50bd"
+}

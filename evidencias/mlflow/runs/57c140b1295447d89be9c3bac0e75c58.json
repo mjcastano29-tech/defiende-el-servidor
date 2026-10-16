@@ -1,0 +1,103 @@
+{
+  "run_id": "57c140b1295447d89be9c3bac0e75c58",
+  "run_name": "E6_hgb_complejo",
+  "experiment_id": "1",
+  "status": "FINISHED",
+  "start_time_utc": "2026-10-16T19:46:16.361000+00:00",
+  "end_time_utc": "2026-10-16T19:46:47.027000+00:00",
+  "conjunto": "reproduccion",
+  "params": {
+    "model": "hgb",
+    "class_weight": "None",
+    "dropped_features": "-",
+    "dedup": "False",
+    "n_train": "140779",
+    "n_val": "34562",
+    "n_features": "42",
+    "seed": "42",
+    "max_fpr": "0.05",
+    "train_hash": "3816661056601085293",
+    "hgb_max_iter": "500",
+    "hgb_max_leaf_nodes": "63",
+    "hgb_learning_rate": "0.05"
+  },
+  "metrics": {
+    "val_recall": 0.9522389331515487,
+    "val_precision": 0.9758546915251277,
+    "val_fpr": 0.04986024704715535,
+    "val_macro_f1": 0.9451598844938216,
+    "val_accuracy": 0.951565302933858,
+    "val_tp": 22350.0,
+    "val_fp": 553.0,
+    "val_tn": 10538.0,
+    "val_fn": 1121.0,
+    "val05_recall": 0.9755868944655106,
+    "val05_precision": 0.9612123247418353,
+    "val05_fpr": 0.08331079253448742,
+    "val05_macro_f1": 0.9498870265325068,
+    "val05_accuracy": 0.9566865343440774,
+    "val05_tp": 22898.0,
+    "val05_fp": 924.0,
+    "val05_tn": 10167.0,
+    "val05_fn": 573.0,
+    "val_roc_auc": 0.9931761335275167,
+    "val_pr_auc": 0.9967470244599168,
+    "threshold": 0.6673794060957008,
+    "fit_seconds": 16.977721198000154,
+    "test_recall": 0.9687858466425483,
+    "test_precision": 0.8672907162746608,
+    "test_fpr": 0.18162162162162163,
+    "test_macro_f1": 0.8984055168341258,
+    "test_accuracy": 0.901192731866103,
+    "test_tp": 43917.0,
+    "test_fp": 6720.0,
+    "test_tn": 30280.0,
+    "test_fn": 1415.0,
+    "test_roc_auc": 0.9844606262266854,
+    "test_pr_auc": 0.9886218068965036,
+    "test_unseen_recall": 0.9634111282439956,
+    "test_unseen_precision": 0.8540416560480041,
+    "test_unseen_fpr": 0.17732492681828416,
+    "test_unseen_macro_f1": 0.8945220254513808,
+    "test_unseen_accuracy": 0.8956512311799542,
+    "test_unseen_tp": 36863.0,
+    "test_unseen_fp": 6300.0,
+    "test_unseen_tn": 29228.0,
+    "test_unseen_fn": 1400.0,
+    "test_unseen_rows": 73791.0
+  },
+  "tags": {
+    "mlflow.user": "mjcas",
+    "mlflow.source.name": "/home/mjcas/code/ciberseguridad/flows/pipeline.py",
+    "mlflow.source.type": "LOCAL",
+    "mlflow.source.git.commit": "450942b1d585d0e601610a507eaa877fabd1ce3c",
+    "mlflow.source.git.branch": "main",
+    "mlflow.source.git.repoURL": "https://github.com/mjcastano29-tech/defiende-el-servidor.git",
+    "mlflow.runName": "E6_hgb_complejo",
+    "question": "¿Más capacidad del mismo modelo compensa su costo?",
+    "change": "E3 con más árboles (500), hojas más grandes (63) y tasa de aprendizaje menor.",
+    "hypothesis": "Mejora marginal (< 1 punto de recall) a cambio de varias veces más tiempo de entrenamiento; el techo lo ponen las filas idénticas con etiqueta contradictoria.",
+    "compare_to": "E3_hgb",
+    "git_commit": "450942b1d585d0e601610a507eaa877fabd1ce3c",
+    "selected": "true"
+  },
+  "inputs": [
+    {
+      "name": "train",
+      "digest": "70a5b6e0",
+      "source": "{\"uri\": \"/home/mjcas/code/ciberseguridad/data/processed/train.parquet\"}",
+      "context": [
+        "training"
+      ]
+    },
+    {
+      "name": "val",
+      "digest": "cc8dca2c",
+      "source": "{\"uri\": \"/home/mjcas/code/ciberseguridad/data/processed/val.parquet\"}",
+      "context": [
+        "validation"
+      ]
+    }
+  ],
+  "logged_model_id": "m-6c465330031043d3b6c4beeac8ec17a9"
+}

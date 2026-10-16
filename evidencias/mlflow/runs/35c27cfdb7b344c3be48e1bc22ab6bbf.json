@@ -1,0 +1,78 @@
+{
+  "run_id": "35c27cfdb7b344c3be48e1bc22ab6bbf",
+  "run_name": "E1_logreg",
+  "experiment_id": "1",
+  "status": "FINISHED",
+  "start_time_utc": "2026-10-16T19:44:44.881000+00:00",
+  "end_time_utc": "2026-10-16T19:45:13.880000+00:00",
+  "conjunto": "reproduccion",
+  "params": {
+    "model": "logreg",
+    "class_weight": "None",
+    "dropped_features": "-",
+    "dedup": "False",
+    "n_train": "140779",
+    "n_val": "34562",
+    "n_features": "42",
+    "seed": "42",
+    "max_fpr": "0.05",
+    "train_hash": "3816661056601085293"
+  },
+  "metrics": {
+    "val_recall": 0.9049039239913085,
+    "val_precision": 0.9745789932547149,
+    "val_fpr": 0.049950410242538996,
+    "val_macro_f1": 0.9108427614898621,
+    "val_accuracy": 0.9193912389329322,
+    "val_tp": 21239.0,
+    "val_fp": 554.0,
+    "val_tn": 10537.0,
+    "val_fn": 2232.0,
+    "val05_recall": 0.974862596395552,
+    "val05_precision": 0.9392086035629259,
+    "val05_fpr": 0.13353169236317736,
+    "val05_macro_f1": 0.9297161918009358,
+    "val05_accuracy": 0.9400786991493548,
+    "val05_tp": 22881.0,
+    "val05_fp": 1481.0,
+    "val05_tn": 9610.0,
+    "val05_fn": 590.0,
+    "val_roc_auc": 0.985741649673626,
+    "val_pr_auc": 0.9923871933532467,
+    "threshold": 0.788666967181885,
+    "fit_seconds": 20.100092774999894
+  },
+  "tags": {
+    "mlflow.user": "mjcas",
+    "mlflow.source.name": "/home/mjcas/code/ciberseguridad/flows/pipeline.py",
+    "mlflow.source.type": "LOCAL",
+    "mlflow.source.git.commit": "450942b1d585d0e601610a507eaa877fabd1ce3c",
+    "mlflow.source.git.branch": "main",
+    "mlflow.source.git.repoURL": "https://github.com/mjcastano29-tech/defiende-el-servidor.git",
+    "mlflow.runName": "E1_logreg",
+    "question": "¿Un modelo lineal sencillo basta para separar tráfico normal de ataque?",
+    "change": "Regresión logística sobre log1p + escalado + one-hot.",
+    "hypothesis": "Superará ampliamente la referencia (ROC-AUC > 0.95) porque variables como sttl separan casi solas, pero las relaciones no lineales limitarán su recall con FPR<=5 %.",
+    "compare_to": "E0_referencia",
+    "git_commit": "450942b1d585d0e601610a507eaa877fabd1ce3c"
+  },
+  "inputs": [
+    {
+      "name": "train",
+      "digest": "70a5b6e0",
+      "source": "{\"uri\": \"/home/mjcas/code/ciberseguridad/data/processed/train.parquet\"}",
+      "context": [
+        "training"
+      ]
+    },
+    {
+      "name": "val",
+      "digest": "cc8dca2c",
+      "source": "{\"uri\": \"/home/mjcas/code/ciberseguridad/data/processed/val.parquet\"}",
+      "context": [
+        "validation"
+      ]
+    }
+  ],
+  "logged_model_id": "m-9675ad32326a4f84a112d5a7e1994466"
+}

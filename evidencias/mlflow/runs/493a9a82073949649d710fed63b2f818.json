@@ -1,0 +1,78 @@
+{
+  "run_id": "493a9a82073949649d710fed63b2f818",
+  "run_name": "E4_hgb_sin_ttl",
+  "experiment_id": "1",
+  "status": "FINISHED",
+  "start_time_utc": "2026-10-16T19:45:53.866000+00:00",
+  "end_time_utc": "2026-10-16T19:46:06.857000+00:00",
+  "conjunto": "reproduccion",
+  "params": {
+    "model": "hgb",
+    "class_weight": "None",
+    "dropped_features": "sttl,dttl,ct_state_ttl",
+    "dedup": "False",
+    "n_train": "140779",
+    "n_val": "34562",
+    "n_features": "39",
+    "seed": "42",
+    "max_fpr": "0.05",
+    "train_hash": "3816661056601085293"
+  },
+  "metrics": {
+    "val_recall": 0.942397000553875,
+    "val_precision": 0.9755656507740484,
+    "val_fpr": 0.049950410242538996,
+    "val_macro_f1": 0.9378764165366011,
+    "val_accuracy": 0.9448527284300677,
+    "val_tp": 22119.0,
+    "val_fp": 554.0,
+    "val_tn": 10537.0,
+    "val_fn": 1352.0,
+    "val05_recall": 0.9740956925567722,
+    "val05_precision": 0.9568510923244329,
+    "val05_fpr": 0.09295825444053737,
+    "val05_macro_f1": 0.9450356184644637,
+    "val05_accuracy": 0.952577975811585,
+    "val05_tp": 22863.0,
+    "val05_fp": 1031.0,
+    "val05_tn": 10060.0,
+    "val05_fn": 608.0,
+    "val_roc_auc": 0.9920122692321492,
+    "val_pr_auc": 0.9961792980091153,
+    "threshold": 0.6669979920998661,
+    "fit_seconds": 3.7954728679999334
+  },
+  "tags": {
+    "mlflow.user": "mjcas",
+    "mlflow.source.name": "/home/mjcas/code/ciberseguridad/flows/pipeline.py",
+    "mlflow.source.type": "LOCAL",
+    "mlflow.source.git.commit": "450942b1d585d0e601610a507eaa877fabd1ce3c",
+    "mlflow.source.git.branch": "main",
+    "mlflow.source.git.repoURL": "https://github.com/mjcastano29-tech/defiende-el-servidor.git",
+    "mlflow.runName": "E4_hgb_sin_ttl",
+    "question": "¿Cuánto depende el modelo del atajo de TTL del laboratorio?",
+    "change": "E3 sin las variables de TTL (sttl, dttl, ct_state_ttl).",
+    "hypothesis": "El rendimiento bajará, pero poco: el resto de variables de flujo contiene señal suficiente. Si cae mucho, el modelo depende de una huella del laboratorio.",
+    "compare_to": "E3_hgb",
+    "git_commit": "450942b1d585d0e601610a507eaa877fabd1ce3c"
+  },
+  "inputs": [
+    {
+      "name": "train",
+      "digest": "70a5b6e0",
+      "source": "{\"uri\": \"/home/mjcas/code/ciberseguridad/data/processed/train.parquet\"}",
+      "context": [
+        "training"
+      ]
+    },
+    {
+      "name": "val",
+      "digest": "cc8dca2c",
+      "source": "{\"uri\": \"/home/mjcas/code/ciberseguridad/data/processed/val.parquet\"}",
+      "context": [
+        "validation"
+      ]
+    }
+  ],
+  "logged_model_id": "m-e20ce14697d246039e5399eacb9b4199"
+}

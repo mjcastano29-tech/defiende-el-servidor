@@ -1,0 +1,78 @@
+{
+  "run_id": "061b382fa9a64b538f84269a102b850a",
+  "run_name": "E3_hgb",
+  "experiment_id": "1",
+  "status": "FINISHED",
+  "start_time_utc": "2026-10-14T22:57:34.809000+00:00",
+  "end_time_utc": "2026-10-14T22:57:46.102000+00:00",
+  "conjunto": "canonico",
+  "params": {
+    "model": "hgb",
+    "class_weight": "None",
+    "dropped_features": "-",
+    "dedup": "False",
+    "n_train": "140779",
+    "n_val": "34562",
+    "n_features": "42",
+    "seed": "42",
+    "max_fpr": "0.05",
+    "train_hash": "3816661056601085293"
+  },
+  "metrics": {
+    "val_recall": 0.9467853947424482,
+    "val_precision": 0.9756761503336846,
+    "val_fpr": 0.049950410242538996,
+    "val_macro_f1": 0.941100452989077,
+    "val_accuracy": 0.9478328800416642,
+    "val_tp": 22222.0,
+    "val_fp": 554.0,
+    "val_tn": 10537.0,
+    "val_fn": 1249.0,
+    "val05_recall": 0.9734140002556346,
+    "val05_precision": 0.9584277204463462,
+    "val05_fpr": 0.0893517266251916,
+    "val05_macro_f1": 0.9459155513185129,
+    "val05_accuracy": 0.9532723800705978,
+    "val05_tp": 22847.0,
+    "val05_fp": 991.0,
+    "val05_tn": 10100.0,
+    "val05_fn": 624.0,
+    "val_roc_auc": 0.9923894461066046,
+    "val_pr_auc": 0.9963630696390768,
+    "threshold": 0.6575122199243463,
+    "fit_seconds": 3.7853180100000827
+  },
+  "tags": {
+    "mlflow.user": "mjcas",
+    "mlflow.source.name": "/home/mjcas/code/ciberseguridad/flows/pipeline.py",
+    "mlflow.source.type": "LOCAL",
+    "mlflow.source.git.commit": "80cdc9925e7af1d1c1aef0696b019995923ab0c5",
+    "mlflow.source.git.branch": "main",
+    "mlflow.source.git.repoURL": "https://github.com/mjcastano29-tech/defiende-el-servidor.git",
+    "mlflow.runName": "E3_hgb",
+    "question": "¿Aumentar la complejidad del modelo mejora el resultado?",
+    "change": "Gradient boosting de árboles (HistGradientBoosting) con el mismo preprocesamiento que E1.",
+    "hypothesis": "Mejorará el recall con FPR<=5 % respecto a E1 porque captura interacciones y umbrales en variables muy asimétricas (bytes, tasas, contadores ct_*).",
+    "compare_to": "E1_logreg",
+    "git_commit": "80cdc9925e7af1d1c1aef0696b019995923ab0c5"
+  },
+  "inputs": [
+    {
+      "name": "train",
+      "digest": "70a5b6e0",
+      "source": "{\"uri\": \"/home/mjcas/code/ciberseguridad/data/processed/train.parquet\"}",
+      "context": [
+        "training"
+      ]
+    },
+    {
+      "name": "val",
+      "digest": "cc8dca2c",
+      "source": "{\"uri\": \"/home/mjcas/code/ciberseguridad/data/processed/val.parquet\"}",
+      "context": [
+        "validation"
+      ]
+    }
+  ],
+  "logged_model_id": "m-a69cace70f3646c4aaf146cac88d3806"
+}

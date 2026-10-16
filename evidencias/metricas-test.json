@@ -1,0 +1,51 @@
+{
+  "version": "v2",
+  "experimento": "E6_hgb_complejo",
+  "run_id": "b1caa19139d54c2ea08d8984bcbb0399",
+  "model_sha256": "24b3db2a677a40333f04ae24a3368dabea72ed7f963954301f1c749f42132673",
+  "model_artifact_sha256": "1bddcd440fd3ff7e6890e935511d2005f839399d4491c4bf79b4249633111561",
+  "dataset": "UNSW_NB15_testing-set.csv",
+  "dataset_sha256": "734fe6642edf758f7c94d7d9149426b49d202fe8e7bf0bef47392489c3c0a559",
+  "predicciones_sha256": "0f4779fd9351af9684f375268be9d65a7e5e736d5424cb07cde01775db5e31e8",
+  "filas_evaluadas": 82332,
+  "umbral": 0.6673794060957008,
+  "clase_positiva": "1 = ataque",
+  "regla": "y_pred = 1 si score_attack >= umbral; score_attack = predict_proba[:, 1]",
+  "denominadores_cero": "si TP+FN, TP+FP o FP+TN es 0, la métrica correspondiente se reporta como 0",
+  "matriz_confusion": {
+    "filas": "real",
+    "columnas": "predicho",
+    "orden": [
+      "normal (0)",
+      "ataque (1)"
+    ],
+    "valores": [
+      [
+        30280,
+        6720
+      ],
+      [
+        1415,
+        43917
+      ]
+    ]
+  },
+  "metricas": {
+    "recall": 0.9687858466425483,
+    "precision": 0.8672907162746608,
+    "fpr": 0.18162162162162163,
+    "macro_f1": 0.8984055168341258,
+    "accuracy": 0.901192731866103,
+    "roc_auc": 0.9844606262266855,
+    "pr_auc": 0.9886218068965533
+  },
+  "subconjunto_sin_entradas_vistas_en_train": {
+    "filas": 73791,
+    "recall": 0.9634111282439956,
+    "precision": 0.8540416560480041,
+    "fpr": 0.17732492681828416,
+    "macro_f1": 0.8945220254513808
+  },
+  "evaluacion": "Única evaluación de la solución congelada (2026-10-14, flow run Prefect 'tangible-tody'). Estas métricas se recalculan desde predicciones-test.csv y coinciden con las originales.",
+  "coincide_con_evaluacion_original": true
+}

@@ -1,0 +1,7 @@
+{
+  "entrada_validacion_20.csv": "031bf06a639f0c60369b84ff0d7eed6500a581474047982aaaa711ea7f12e133",
+  "salida_original_v1.csv": "4fc7ccae0544f495e2df30b58b7a2d57cb3615d0757f14b1b0cc65f10f382d38",
+  "v1_model_sha256": "7cdc9965a67ccd0342e8b54ebddaf6b84121e3498ddea9dbde27a859f0e221bc",
+  "salida_original_v2.csv": "a3a6024f929aa0a7fc1645e8a22a7bdd1c7ad26eb4723f0745300b401459132c",
+  "v2_model_sha256": "24b3db2a677a40333f04ae24a3368dabea72ed7f963954301f1c749f42132673"
+}

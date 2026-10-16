@@ -1,0 +1,75 @@
+{
+  "version_elegida": "v2",
+  "experimento": "E6_hgb_complejo",
+  "run_id": "b1caa19139d54c2ea08d8984bcbb0399",
+  "umbral": 0.6673794060957008,
+  "model_sha256": "24b3db2a677a40333f04ae24a3368dabea72ed7f963954301f1c749f42132673",
+  "git_commit_entrenamiento": "80cdc9925e7af1d1c1aef0696b019995923ab0c5",
+  "git_tag": "v2",
+  "dvc": {
+    "data/raw": "ec34e6c98cfc4117e0b89a111496a0cb.dir",
+    "data/processed": "f6c1bfa06596c6aaafc11b20e90df2e3.dir",
+    "models/v2": "59085e5e8a446af42ae5d677ea1d7826.dir"
+  },
+  "huggingface": "pendiente de publicar",
+  "validacion": {
+    "recall": 0.9522389331515487,
+    "precision": 0.9758546915251277,
+    "fpr": 0.04986024704715535,
+    "macro_f1": 0.9451598844938216
+  },
+  "criterio": "Máximo recall de ataque en validación con FPR <= 5 %; desempate macro-F1. Escrito en params.yaml (alert.max_fpr) antes de entrenar, commit 86d0212 (2026-10-14 22:52:53 UTC).",
+  "razon": "E6 obtiene el mayor recall en validación (95,2 %) con FPR 5,0 %; E3 mostró que el cambio de familia aporta +4,2 puntos frente a la regresión logística (v1) y E6 añade +0,5. El costo es de segundos.",
+  "v1": {
+    "experimento": "E1_logreg",
+    "run_id": "ad45444b57f342e7b7df102aa9898abc",
+    "umbral": 0.788666967181885,
+    "model_sha256": "7cdc9965a67ccd0342e8b54ebddaf6b84121e3498ddea9dbde27a859f0e221bc",
+    "git_commit_entrenamiento": "80cdc9925e7af1d1c1aef0696b019995923ab0c5",
+    "git_tag": "v1",
+    "dvc": {
+      "data/raw": "ec34e6c98cfc4117e0b89a111496a0cb.dir",
+      "data/processed": "f6c1bfa06596c6aaafc11b20e90df2e3.dir",
+      "models/v1": "4e255fd0dd98e82128f88f108551b901.dir"
+    },
+    "huggingface": "pendiente de publicar",
+    "validacion": {
+      "recall": 0.9049039239913085,
+      "precision": 0.9745789932547149,
+      "fpr": 0.049950410242538996,
+      "macro_f1": 0.9108427614898621
+    }
+  },
+  "comparacion_v1_v2_validacion": {
+    "mejora": "recall 90,5 % → 95,2 % (+4,7 puntos) y macro-F1 0,911 → 0,945 con la misma FPR (5 %)",
+    "empeora": "modelo menos interpretable que la logística (sin coeficientes directos) y artefacto más pesado; la FPR no cambia (5 %) porque ambos umbrales se fijan con la misma política",
+    "errores_aceptados": "~5 % de conexiones normales alarmadas y ~4,8 % de ataques no detectados en validación"
+  },
+  "congelacion_previa_al_test": {
+    "params_yaml_commit": "86d0212 (2026-10-14 22:52:53 UTC) — criterio y experimentos antes de entrenar",
+    "prefect": {
+      "flow_run_prefect": "tangible-tody",
+      "tareas": {
+        "comparar-y-congelar": {
+          "inicio_utc": "2026-10-14 22:58:30.785488",
+          "fin_utc": "2026-10-14 22:58:31.803869",
+          "estado": "Completed"
+        },
+        "evaluar-test": {
+          "inicio_utc": "2026-10-14 22:58:31.808895",
+          "fin_utc": "2026-10-14 22:58:35.074182",
+          "estado": "Completed"
+        }
+      }
+    },
+    "mlflow": "en el run b1caa191 la métrica val_recall se registró 22:58:26 UTC y test_recall 22:58:34 UTC",
+    "git_commit_resultados": "548227a (2026-10-14) — reports/seleccion.json y reports/test_metrics.json",
+    "nota": "La primera guía (2026-10-02) no pedía v1/v2; la elección de E6 se hizo con validación y no se modificó al recibir la guía actualizada (2026-10-16). v1 no se usó para elegir y su diagnóstico en test (reports/analisis_post_hoc.csv) es posterior y declarado como tal."
+  },
+  "resultado_test": {
+    "recall": 0.9687858466425483,
+    "precision": 0.8672907162746608,
+    "fpr": 0.18162162162162163,
+    "macro_f1": 0.8984055168341258
+  }
+}

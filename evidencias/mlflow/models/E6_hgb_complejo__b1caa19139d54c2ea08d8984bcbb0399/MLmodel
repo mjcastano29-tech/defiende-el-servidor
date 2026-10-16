@@ -1,0 +1,65 @@
+artifact_path: file:///home/mjcas/code/ciberseguridad/mlflow/artifacts/models/m-d75b34f01a0d45b1a9a13980badab99f/artifacts
+flavors:
+  python_function:
+    code: code
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.skops
+    predict_fn: predict
+    python_version: 3.10.12
+  sklearn:
+    code: code
+    pickled_model: model.skops
+    serialization_format: skops
+    sklearn_version: 1.7.2
+    skops_trusted_types:
+    - src.features.log1p_clip
+    - sklearn.ensemble._hist_gradient_boosting.predictor.TreePredictor
+is_signature_from_type_hint: false
+mlflow_version: 3.16.1
+model_id: m-d75b34f01a0d45b1a9a13980badab99f
+model_size_bytes: 6067273
+model_uuid: m-d75b34f01a0d45b1a9a13980badab99f
+prompts: null
+run_id: b1caa19139d54c2ea08d8984bcbb0399
+saved_input_example_info:
+  artifact_path: input_example.json
+  pandas_orient: split
+  serving_input_path: serving_input_example.json
+  type: dataframe
+signature:
+  inputs: '[{"type": "double", "name": "dur", "required": true}, {"type": "string",
+    "name": "proto", "required": true}, {"type": "string", "name": "service", "required":
+    true}, {"type": "string", "name": "state", "required": true}, {"type": "long",
+    "name": "spkts", "required": true}, {"type": "long", "name": "dpkts", "required":
+    true}, {"type": "long", "name": "sbytes", "required": true}, {"type": "long",
+    "name": "dbytes", "required": true}, {"type": "double", "name": "rate", "required":
+    true}, {"type": "long", "name": "sttl", "required": true}, {"type": "long", "name":
+    "dttl", "required": true}, {"type": "double", "name": "sload", "required": true},
+    {"type": "double", "name": "dload", "required": true}, {"type": "long", "name":
+    "sloss", "required": true}, {"type": "long", "name": "dloss", "required": true},
+    {"type": "double", "name": "sinpkt", "required": true}, {"type": "double", "name":
+    "dinpkt", "required": true}, {"type": "double", "name": "sjit", "required": true},
+    {"type": "double", "name": "djit", "required": true}, {"type": "long", "name":
+    "swin", "required": true}, {"type": "long", "name": "stcpb", "required": true},
+    {"type": "long", "name": "dtcpb", "required": true}, {"type": "long", "name":
+    "dwin", "required": true}, {"type": "double", "name": "tcprtt", "required": true},
+    {"type": "double", "name": "synack", "required": true}, {"type": "double", "name":
+    "ackdat", "required": true}, {"type": "long", "name": "smean", "required": true},
+    {"type": "long", "name": "dmean", "required": true}, {"type": "long", "name":
+    "trans_depth", "required": true}, {"type": "long", "name": "response_body_len",
+    "required": true}, {"type": "long", "name": "ct_srv_src", "required": true}, {"type":
+    "long", "name": "ct_state_ttl", "required": true}, {"type": "long", "name": "ct_dst_ltm",
+    "required": true}, {"type": "long", "name": "ct_src_dport_ltm", "required": true},
+    {"type": "long", "name": "ct_dst_sport_ltm", "required": true}, {"type": "long",
+    "name": "ct_dst_src_ltm", "required": true}, {"type": "long", "name": "is_ftp_login",
+    "required": true}, {"type": "long", "name": "ct_ftp_cmd", "required": true}, {"type":
+    "long", "name": "ct_flw_http_mthd", "required": true}, {"type": "long", "name":
+    "ct_src_ltm", "required": true}, {"type": "long", "name": "ct_srv_dst", "required":
+    true}, {"type": "long", "name": "is_sm_ips_ports", "required": true}]'
+  outputs: '[{"type": "tensor", "tensor-spec": {"dtype": "float64", "shape": [-1]}}]'
+  params: null
+type_hint_from_example: false
+utc_time_created: '2026-10-14 22:58:26.441859'

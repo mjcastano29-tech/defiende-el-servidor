@@ -1,0 +1,78 @@
+{
+  "run_id": "1257fc47dbef45a78f08441d757df120",
+  "run_name": "E2_logreg_balanceada",
+  "experiment_id": "1",
+  "status": "FINISHED",
+  "start_time_utc": "2026-10-16T19:45:14.063000+00:00",
+  "end_time_utc": "2026-10-16T19:45:38.846000+00:00",
+  "conjunto": "reproduccion",
+  "params": {
+    "model": "logreg",
+    "class_weight": "balanced",
+    "dropped_features": "-",
+    "dedup": "False",
+    "n_train": "140779",
+    "n_val": "34562",
+    "n_features": "42",
+    "seed": "42",
+    "max_fpr": "0.05",
+    "train_hash": "3816661056601085293"
+  },
+  "metrics": {
+    "val_recall": 0.9040518086148864,
+    "val_precision": 0.9745556423092822,
+    "val_fpr": 0.049950410242538996,
+    "val_macro_f1": 0.9102382695607527,
+    "val_accuracy": 0.9188125687170882,
+    "val_tp": 21219.0,
+    "val_fp": 554.0,
+    "val_tn": 10537.0,
+    "val_fn": 2252.0,
+    "val05_recall": 0.9394998082740403,
+    "val05_precision": 0.9608697546734063,
+    "val05_fpr": 0.08096654945451266,
+    "val05_macro_f1": 0.9239840402259117,
+    "val05_accuracy": 0.9329321219836815,
+    "val05_tp": 22051.0,
+    "val05_fp": 898.0,
+    "val05_tn": 10193.0,
+    "val05_fn": 1420.0,
+    "val_roc_auc": 0.9858110958091186,
+    "val_pr_auc": 0.9926598443815748,
+    "threshold": 0.6352238708303168,
+    "fit_seconds": 15.899898791000169
+  },
+  "tags": {
+    "mlflow.user": "mjcas",
+    "mlflow.source.name": "/home/mjcas/code/ciberseguridad/flows/pipeline.py",
+    "mlflow.source.type": "LOCAL",
+    "mlflow.source.git.commit": "450942b1d585d0e601610a507eaa877fabd1ce3c",
+    "mlflow.source.git.branch": "main",
+    "mlflow.source.git.repoURL": "https://github.com/mjcastano29-tech/defiende-el-servidor.git",
+    "mlflow.runName": "E2_logreg_balanceada",
+    "question": "¿Equilibrar las clases cambia los errores?",
+    "change": "E1 con class_weight=balanced (más peso a la clase normal, minoritaria en train).",
+    "hypothesis": "Con umbral 0.5 bajará la tasa de falsos positivos a costa de recall; con el umbral ajustado en validación la diferencia será pequeña, porque el reponderado sobre todo desplaza el umbral.",
+    "compare_to": "E1_logreg",
+    "git_commit": "450942b1d585d0e601610a507eaa877fabd1ce3c"
+  },
+  "inputs": [
+    {
+      "name": "train",
+      "digest": "70a5b6e0",
+      "source": "{\"uri\": \"/home/mjcas/code/ciberseguridad/data/processed/train.parquet\"}",
+      "context": [
+        "training"
+      ]
+    },
+    {
+      "name": "val",
+      "digest": "cc8dca2c",
+      "source": "{\"uri\": \"/home/mjcas/code/ciberseguridad/data/processed/val.parquet\"}",
+      "context": [
+        "validation"
+      ]
+    }
+  ],
+  "logged_model_id": "m-3877ae36ec844f5c86f88dd144e40e03"
+}
