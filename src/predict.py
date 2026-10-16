@@ -4,9 +4,11 @@ Ejemplos:
   python -m src.predict --input data/raw/UNSW_NB15_testing-set.csv --output reports/predicciones.csv
   python -m src.predict --model "models:/defiende-el-servidor@champion" --input ... --output ...
   python -m src.predict --model "models:/defiende-el-servidor/1" --input ... --output ...
+  python -m src.predict --model "hf://<usuario>/defiende-el-servidor" --input ... --output ...
 """
 import argparse
 import json
+from pathlib import Path
 
 import mlflow
 import pandas as pd
@@ -25,14 +27,17 @@ def load(model_uri: str):
         mv = (client.get_model_version_by_alias(name, ref) if "@" in model_uri
               else client.get_model_version(name, ref))
         return mlflow.sklearn.load_model(model_uri), float(mv.tags["threshold"]), f"{name} v{mv.version}"
-    meta = json.loads((MODEL_DIR / "metadata.json").read_text(encoding="utf-8"))
+    if model_uri.startswith("hf://"):
+        from huggingface_hub import snapshot_download
+        model_uri = snapshot_download(model_uri.removeprefix("hf://"))
+    meta = json.loads((Path(model_uri) / "metadata.json").read_text(encoding="utf-8"))
     return (mlflow.sklearn.load_model(model_uri), float(meta["threshold"]),
             f"{meta['registered_model']} v{meta['version']} ({model_uri})")
 
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--model", default=str(MODEL_DIR), help="ruta local o URI models:/nombre@alias|/versión")
+    ap.add_argument("--model", default=str(MODEL_DIR), help="ruta local, models:/nombre@alias|/versión o hf://usuario/repo")
     ap.add_argument("--input", required=True, help="CSV con las columnas de UNSW-NB15")
     ap.add_argument("--output", required=True)
     args = ap.parse_args()
