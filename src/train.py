@@ -1,5 +1,7 @@
 """Entrenamiento de un experimento y registro en MLflow."""
+import sqlite3
 import time
+from pathlib import Path
 
 import mlflow
 import numpy as np
@@ -15,9 +17,37 @@ from src.features import TRUSTED_TYPES, build_preprocessor
 from src.metrics import metrics_at, ranking_metrics, threshold_for_max_fpr
 
 
+def relocate_mlflow_store(db: Path, artifact_dir: Path) -> None:
+    """MLflow guarda rutas absolutas. Si el repo se clonó en otra carpeta/máquina (dvc pull),
+    reescribe esas rutas para que apunten a esta copia."""
+    if not db.exists():
+        return
+    con = sqlite3.connect(db)
+    try:
+        row = con.execute("SELECT artifact_location FROM experiments WHERE artifact_location LIKE ?",
+                          ("%/mlflow/artifacts",)).fetchone()
+        if row is None:
+            return
+        old = row[0].removeprefix("file://").removesuffix("/mlflow/artifacts")
+        new = str(artifact_dir.parent.parent)
+        if old == new:
+            return
+        tables = [t for (t,) in con.execute("SELECT name FROM sqlite_master WHERE type='table'")]
+        for t in tables:
+            for _, col, ctype, *_ in con.execute(f"PRAGMA table_info({t})").fetchall():
+                if "CHAR" in ctype.upper() or "TEXT" in ctype.upper():
+                    con.execute(f"UPDATE {t} SET {col} = REPLACE({col}, ?, ?) WHERE {col} LIKE ?",
+                                (old, new, f"%{old}%"))
+        con.commit()
+        print(f"MLflow: rutas reubicadas {old} -> {new}")
+    finally:
+        con.close()
+
+
 def setup_mlflow(params: dict) -> str:
     cfg = params["mlflow"]
     (ROOT / "mlflow").mkdir(exist_ok=True)
+    relocate_mlflow_store(ROOT / "mlflow" / "mlflow.db", ROOT / cfg["artifact_dir"])
     uri = cfg["tracking_uri"].replace("sqlite:///", f"sqlite:///{ROOT}/")
     mlflow.set_tracking_uri(uri)
     if mlflow.get_experiment_by_name(cfg["experiment"]) is None:

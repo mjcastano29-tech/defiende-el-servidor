@@ -54,7 +54,8 @@ pip install -r requirements.txt
 dvc pull            # data/raw, data/processed, models/final y mlflow/
 ```
 
-El remoto configurado es una carpeta local (`/home/mjcas/dvc-storage/defiende-el-servidor`).
+MLflow guarda rutas absolutas; si el repo queda en otra carpeta, `setup_mlflow` las reubica
+automáticamente al primer uso. El remoto configurado es una carpeta local (`/home/mjcas/dvc-storage/defiende-el-servidor`).
 En otra máquina, copia esa carpeta y apunta el remoto a ella:
 `dvc remote modify local url /ruta/a/la/copia`.
 
