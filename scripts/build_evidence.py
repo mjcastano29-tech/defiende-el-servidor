@@ -172,7 +172,9 @@ def build_audit(params: dict) -> pd.DataFrame:
         },
     }
     jdump(audit, EV / "auditoria.json")
-    return test
+    train_hashes = set(row_hash(train, feats))
+    del train, assign, h_tr, h_va
+    return test, train_hashes
 
 
 def sha256_str(s: str) -> str:
@@ -281,7 +283,7 @@ def prefect_freeze_evidence() -> dict:
     return {"flow_run_prefect": "tangible-tody", "tareas": tasks}
 
 
-def build_test(test: pd.DataFrame, versions: dict, exps: pd.DataFrame):
+def build_test(test: pd.DataFrame, train_hashes: set, versions: dict, exps: pd.DataFrame):
     v2 = json.loads((ROOT / "models/v2/config.json").read_text(encoding="utf-8"))
     model, thr, desc = load(str(ROOT / "models/v2"))
     pred = predict_frame(model, thr, test, TEST_CSV)
@@ -291,8 +293,7 @@ def build_test(test: pd.DataFrame, versions: dict, exps: pd.DataFrame):
     back = pd.read_csv(EV / "predicciones-test.csv")
     y, s = back["y_true"].to_numpy(), back["score_attack"].to_numpy()
     assert (back["y_pred"].to_numpy() == (s >= thr).astype(int)).all()
-    seen = (row_hash(test, feature_columns(test)).isin(
-        set(row_hash(read_raw(RAW / TRAIN_CSV), feature_columns(test))))).to_numpy()
+    seen = row_hash(test, feature_columns(test)).isin(train_hashes).to_numpy()
     m = metrics_at(y, s, thr)
     metrics = {
         "version": "v2", "experimento": v2["experiment"], "run_id": v2["lineage"]["mlflow_run_id"],
@@ -388,11 +389,11 @@ def main():
     EV.mkdir(exist_ok=True)
     client = MlflowClient()
     versions = load_versions()
-    test = build_audit(params)
+    test, train_hashes = build_audit(params)
     runs = runs_by_commit(client, params)
     export_mlflow(client, runs)
     exps = build_experiments(runs, params, versions)
-    test_metrics = build_test(test, versions, exps)
+    test_metrics = build_test(test, train_hashes, versions, exps)
     build_selection(versions, exps, test_metrics)
     build_recovery_inputs(params)
     print("Evidencias en", EV.relative_to(ROOT))

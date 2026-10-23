@@ -159,7 +159,7 @@ pip install -r requirements.txt huggingface_hub
 import json, mlflow, pandas as pd
 from huggingface_hub import snapshot_download
 
-path = snapshot_download("<usuario>/{hf_repo}", revision="<SHA completo de la revisión>")
+path = snapshot_download("{hf_repo}", revision="<SHA completo de la revisión>")
 cfg = json.load(open(f"{{path}}/config.json"))
 model = mlflow.sklearn.load_model(f"{{path}}/model")          # preprocesamiento + estimador
 X = pd.read_csv("UNSW_NB15_testing-set.csv", encoding="utf-8-sig")
@@ -167,14 +167,14 @@ score = model.predict_proba(X[cfg["input_features"]])[:, 1]
 y_pred = (score >= cfg["threshold"]).astype(int)
 ```
 
-O desde el repositorio de código: `python -m src.predict --model hf://<usuario>/{hf_repo}@<SHA> --input ... --output ...`
+O desde el repositorio de código: `python -m src.predict --model hf://{hf_repo}@<SHA> --input ... --output ...`
 
 ## Trazabilidad
 
 | Pieza | Referencia |
 |---|---|
-| Código | {github} · commit de entrenamiento `{commit}` |
-| Datos (DVC) | `data/raw` md5 `{dvc_raw}` · `data/processed` md5 `{dvc_proc}` |
+| Código | {github} · tag `{version}` · commit de entrenamiento `{commit}` |
+| Datos (DVC) | `data/raw` md5 `{dvc_raw}` · `data/processed` md5 `{dvc_proc}` · remoto `https://huggingface.co/datasets/Marimar2006/defiende-el-servidor-dvc` |
 | Experimento (MLflow) | run `{run_id}` · modelo `{model_id}` |
 
 ## Limitaciones

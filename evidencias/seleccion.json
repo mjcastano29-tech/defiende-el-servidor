@@ -11,7 +11,18 @@
     "data/processed": "f6c1bfa06596c6aaafc11b20e90df2e3.dir",
     "models/v2": "59085e5e8a446af42ae5d677ea1d7826.dir"
   },
-  "huggingface": "pendiente de publicar",
+  "huggingface": {
+    "repo": "Marimar2006/defiende-el-servidor",
+    "url": "https://huggingface.co/Marimar2006/defiende-el-servidor/tree/61da5e88c5e61cbd5e334f022321bd4e5a3d7e61",
+    "sha": "61da5e88c5e61cbd5e334f022321bd4e5a3d7e61",
+    "tag": "v2",
+    "git_tag": "v2",
+    "experiment": "E6_hgb_complejo",
+    "mlflow_run_id": "b1caa19139d54c2ea08d8984bcbb0399",
+    "threshold": 0.6673794060957008,
+    "model_sha256": "24b3db2a677a40333f04ae24a3368dabea72ed7f963954301f1c749f42132673",
+    "model_artifact_sha256": "1bddcd440fd3ff7e6890e935511d2005f839399d4491c4bf79b4249633111561"
+  },
   "validacion": {
     "recall": 0.9522389331515487,
     "precision": 0.9758546915251277,
@@ -32,7 +43,18 @@
       "data/processed": "f6c1bfa06596c6aaafc11b20e90df2e3.dir",
       "models/v1": "4e255fd0dd98e82128f88f108551b901.dir"
     },
-    "huggingface": "pendiente de publicar",
+    "huggingface": {
+      "repo": "Marimar2006/defiende-el-servidor",
+      "url": "https://huggingface.co/Marimar2006/defiende-el-servidor/tree/8e27487d8f00b28756cbaac36d4e43aef9244ea6",
+      "sha": "8e27487d8f00b28756cbaac36d4e43aef9244ea6",
+      "tag": "v1",
+      "git_tag": "v1",
+      "experiment": "E1_logreg",
+      "mlflow_run_id": "ad45444b57f342e7b7df102aa9898abc",
+      "threshold": 0.788666967181885,
+      "model_sha256": "7cdc9965a67ccd0342e8b54ebddaf6b84121e3498ddea9dbde27a859f0e221bc",
+      "model_artifact_sha256": "537a9286267e4dd707a212d0f63cbf56777b5551bbfa8300ac67a3f252b7f9d3"
+    },
     "validacion": {
       "recall": 0.9049039239913085,
       "precision": 0.9745789932547149,

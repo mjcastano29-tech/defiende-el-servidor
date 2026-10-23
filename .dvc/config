@@ -1,5 +1,5 @@
 [core]
-    remote = local
     autostage = true
-['remote "local"']
-    url = /home/mjcas/dvc-storage/defiende-el-servidor
+    remote = hf
+['remote "hf"']
+    url = https://huggingface.co/datasets/Marimar2006/defiende-el-servidor-dvc/resolve/main
