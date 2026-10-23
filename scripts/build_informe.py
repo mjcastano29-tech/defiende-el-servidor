@@ -108,17 +108,17 @@ def main():
     s.append(table([
         ["Archivo", "Filas × col.", "Ataque", "Duplicados por entradas", "Grupos contradictorios", "NaN / '-' en service",
          "SHA-256 (inicio)"],
-        [tr["archivo"], f"{thousands(tr['filas'])} × {tr['columnas']}", pct(tr["tasa_ataque"]),
+        [tr["archivo"], f"{thousands(tr['filas'])}×{tr['columnas']}", pct(tr["tasa_ataque"]),
          f"{thousands(dtr['filas_duplicadas'])} ({str(dtr['pct_duplicadas']).replace('.', ',')} %)",
          f"{dtr['grupos_con_etiqueta_contradictoria']} ({dtr['filas_en_grupos_contradictorios']} filas)",
          f"0 / {thousands(tr['faltantes_codificados'][chr(115) + 'ervice == ' + chr(39) + '-' + chr(39)])}",
          tr["sha256"][:16] + "…"],
-        [te["archivo"], f"{thousands(te['filas'])} × {te['columnas']}", pct(te["tasa_ataque"]),
+        [te["archivo"], f"{thousands(te['filas'])}×{te['columnas']}", pct(te["tasa_ataque"]),
          f"{thousands(dte['filas_duplicadas'])} ({str(dte['pct_duplicadas']).replace('.', ',')} %)",
          f"{dte['grupos_con_etiqueta_contradictoria']} ({dte['filas_en_grupos_contradictorios']} filas)",
          f"0 / {thousands(te['faltantes_codificados'][chr(115) + 'ervice == ' + chr(39) + '-' + chr(39)])}",
          te["sha256"][:16] + "…"],
-    ], [3.9, 1.8, 1.2, 2.6, 2.4, 2.1, 2.6]))
+    ], [3.9, 1.8, 1.2, 2.6, 2.4, 2.0, 2.9]))
     s.append(Spacer(1, 4))
     P("<b>Variables.</b> 42 predictoras (39 numéricas y <i>proto</i>, <i>service</i>, <i>state</i>). Se excluyen "
       "<i>label</i> (respuesta), <i>attack_cat</i> (Normal ⇔ label 0: revela la respuesta) e <i>id</i>: es el "
@@ -164,7 +164,7 @@ def main():
                      chg[e["id"]], hyp[e["id"]], num(float(e["umbral"]), 3), num(float(e["recall"])),
                      num(float(e["precision"])), num(float(e["fpr"])), num(float(e["macro_f1"])),
                      e["run_id"][:8] + "…"])
-    s.append(table(rows, [1.4, 3.6, 3.6, 1.1, 1.1, 1.3, 1.1, 1.3, 2.0]))
+    s.append(table(rows, [1.4, 3.4, 3.4, 1.3, 1.3, 1.6, 1.2, 1.6, 2.0]))
     s.append(Spacer(1, 4))
     P("<b>Lectura.</b> Todas las hipótesis se confirmaron. E2 cambió nuestra opinión: balancear clases parecía "
       "necesario por la prevalencia invertida, pero con el umbral elegido explícitamente no aporta (con umbral "
@@ -194,7 +194,8 @@ def main():
     P("<b>v1</b> es la primera solución funcional: preprocesamiento, regresión logística y umbral elegidos e "
       "identificados. <b>v2</b> es la revisión basada en los experimentos: cambia la familia de modelo y sus "
       "hiperparámetros, con los mismos datos, particiones y política de umbral. <b>Mejora</b> el recall en 4,7 "
-      "puntos (de 2.232 a 1.123 ataques no detectados en validación) y el macro-F1 de 0,911 a 0,945. "
+      f"puntos (de {thousands(v['v1']['validation_metrics']['fn'])} a {thousands(v['v2']['validation_metrics']['fn'])} "
+      "ataques no detectados en validación) y el macro-F1 de 0,911 a 0,945. "
       "<b>Empeora</b> la interpretabilidad (sin coeficientes directos) y el tamaño del artefacto (0,3 MB → 5,8 MB); "
       "la FPR no cambia porque ambos umbrales se fijan con la misma regla. <b>Errores aceptados</b>: ~5 % de "
       "conexiones normales alarmadas y ~4,8 % de ataques no detectados en validación. Cada versión se publicó "
@@ -240,7 +241,7 @@ def main():
       "sin efecto en la selección, muestra que ningún modelo se habría salvado (FPR en test entre "
       f"{pct(min(float(r['posthoc_test_fpr']) for r in posthoc))} y "
       f"{pct(max(float(r['posthoc_test_fpr']) for r in posthoc))}, también sin TTL). La capacidad de ordenar "
-      f"se conserva (ROC-AUC {num(m['roc_auc'], 3)}); lo que no se traslada es el umbral. Los ataques no "
+      f"se conserva (ROC-AUC {num(m['roc_auc'])}); lo que no se traslada es el umbral. Los ataques no "
       f"detectados se concentran en Fuzzers ({pct(1 - fuzz['marcadas_como_ataque'], 0)} sin alerta; 1.257 de "
       "1.415). Las predicciones por fila (row_id, y_true, score_attack, y_pred) y las métricas se recalculan "
       "desde predicciones-test.csv y coinciden con la evaluación original.")

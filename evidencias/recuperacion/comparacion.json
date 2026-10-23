@@ -1,0 +1,39 @@
+{
+  "entrada": {
+    "archivo": "entrada_validacion_20.csv",
+    "filas": 20,
+    "sha256": "031bf06a639f0c60369b84ff0d7eed6500a581474047982aaaa711ea7f12e133"
+  },
+  "tolerancia_abs_score": 1e-09,
+  "versiones": {
+    "v1": {
+      "huggingface": "Marimar2006/defiende-el-servidor@18ca32ce72d39f02782a38d745185500aa5625cb",
+      "experimento": "E1_logreg",
+      "umbral": 0.788666967181885,
+      "model_sha256_descargado": "7cdc9965a67ccd0342e8b54ebddaf6b84121e3498ddea9dbde27a859f0e221bc",
+      "model_sha256_esperado": "7cdc9965a67ccd0342e8b54ebddaf6b84121e3498ddea9dbde27a859f0e221bc",
+      "salida_recuperada_sha256": "4fc7ccae0544f495e2df30b58b7a2d57cb3615d0757f14b1b0cc65f10f382d38",
+      "salida_original_sha256": "4fc7ccae0544f495e2df30b58b7a2d57cb3615d0757f14b1b0cc65f10f382d38",
+      "row_id_coinciden": true,
+      "y_pred_coinciden": true,
+      "max_abs_diff_score": 2.220446049250313e-16,
+      "alertas": 9,
+      "resultado": "OK"
+    },
+    "v2": {
+      "huggingface": "Marimar2006/defiende-el-servidor@cab4044d0e3ae66a06ed1227bd4f5384e7808271",
+      "experimento": "E6_hgb_complejo",
+      "umbral": 0.6673794060957008,
+      "model_sha256_descargado": "24b3db2a677a40333f04ae24a3368dabea72ed7f963954301f1c749f42132673",
+      "model_sha256_esperado": "24b3db2a677a40333f04ae24a3368dabea72ed7f963954301f1c749f42132673",
+      "salida_recuperada_sha256": "a3a6024f929aa0a7fc1645e8a22a7bdd1c7ad26eb4723f0745300b401459132c",
+      "salida_original_sha256": "a3a6024f929aa0a7fc1645e8a22a7bdd1c7ad26eb4723f0745300b401459132c",
+      "row_id_coinciden": true,
+      "y_pred_coinciden": true,
+      "max_abs_diff_score": 1.1102230246251565e-16,
+      "alertas": 10,
+      "resultado": "OK"
+    }
+  },
+  "resultado": "OK"
+}

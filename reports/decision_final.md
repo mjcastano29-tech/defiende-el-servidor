@@ -7,8 +7,8 @@
 | Modelo | **E6_hgb_complejo**: `HistGradientBoostingClassifier` (500 iteraciones máx., 63 hojas, lr 0,05) sobre log1p + escalado + one-hot |
 | Umbral de alerta | **0,667** (probabilidad de ataque ≥ 0,667 → alerta) |
 | Criterio | máximo recall en validación con FPR ≤ 5 %; desempate macro-F1 (fijado antes de entrenar) |
-| Versión | MLflow Model Registry `defiende-el-servidor` **v2**, alias `champion`; ejecución `57c140b1295447d89be9c3bac0e75c58` (commit `450942b`). La v1 (ejecución `b1caa191…`, commit `80cdc99`) es la primera corrida: misma selección y métricas idénticas, lo que confirma que el pipeline es reproducible |
-| Copia exportada | `models/final/` (versionada con DVC, `models/final.dvc`) + `metadata.json` con umbral, commit y SHA-256 de los datos |
+| Versión entregada | **v2** = run MLflow `b1caa19139d54c2ea08d8984bcbb0399` (commit `80cdc99`), tag Git `v2`, Hugging Face `Marimar2006/defiende-el-servidor@cab4044d0e3ae66a06ed1227bd4f5384e7808271`, `models/v2` en DVC. La primera solución, **v1** (E1, regresión logística), está en el tag `v1` y en la revisión `18ca32ce…` |
+| Reproducibilidad | Una re-ejecución completa del pipeline (commit `450942b`, run `57c140b1…`) dio exactamente las mismas métricas; en el Model Registry local de MLflow aparece como versión 2 del modelo registrado (numeración del registro, distinta de las soluciones v1/v2) |
 | Elección congelada | [seleccion.json](seleccion.json) |
 
 **Por qué este modelo y no otro:** el gradient boosting (E3) supera a la regresión logística en
@@ -95,8 +95,9 @@ tráfico normal reciente de esa red** y monitorear la tasa de alertas.
 
 ## Si perdiéramos el entorno local
 
-Con el repositorio de GitHub y el remoto DVC (`/home/mjcas/dvc-storage/defiende-el-servidor`):
+Con el repositorio de GitHub y el remoto DVC público (`https://huggingface.co/datasets/Marimar2006/defiende-el-servidor-dvc`):
 `git clone` → `pip install -r requirements.txt` → `dvc pull` recupera datos, particiones,
-modelo y registros de MLflow exactos. Sin el remoto DVC, `scripts/download_data.sh` verifica
+paquetes v1/v2 y registros de MLflow exactos; los modelos se descargan además de Hugging Face por SHA.
+Verificado en un entorno nuevo (`evidencias/recuperacion/`). Sin el remoto DVC, `scripts/download_data.sh` verifica
 los datos por SHA-256 y `python -m flows.pipeline` reconstruye todo de forma determinista
 (semilla 42).

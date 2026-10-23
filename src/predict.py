@@ -2,7 +2,7 @@
 
 Ejemplos:
   python -m src.predict --model models/v2 --input data/raw/UNSW_NB15_testing-set.csv --output pred.csv
-  python -m src.predict --model hf://<usuario>/defiende-el-servidor@<SHA> --input entrada.csv --output pred.csv
+  python -m src.predict --model hf://Marimar2006/defiende-el-servidor@<SHA> --input entrada.csv --output pred.csv
   python -m src.predict --model "models:/defiende-el-servidor@champion" --input ... --output ...
 
 Salida: row_id, [y_true], score_attack, y_pred  (y_pred = 1 si score_attack >= umbral de la versión).

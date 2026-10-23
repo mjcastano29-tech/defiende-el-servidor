@@ -5,7 +5,7 @@
 - **Jorge Horacio Rojas Criollo** — Grupo A
 - **Maria Jimena Castaño Albarracin** — Grupo A
 - Código (GitHub): https://github.com/mjcastano29-tech/defiende-el-servidor
-- **Commit final de la entrega:** `COMMIT_FINAL` (rama `main`)
+- **Commit final de la entrega:** tag Git `entrega` (rama `main`); el SHA completo va en el mensaje de entrega
 - Modelos (Hugging Face Hub): https://huggingface.co/Marimar2006/defiende-el-servidor
 - Almacenamiento DVC (Hugging Face, dataset público): https://huggingface.co/datasets/Marimar2006/defiende-el-servidor-dvc
 
@@ -78,7 +78,7 @@ Equipo: Intel Core i5-1235U (12 hilos), 3,7 GB de RAM asignados a WSL2 (Ubuntu 2
 | Entrenamiento E0–E6 | 0,6 s · 24,1 s · 16,6 s · 3,8 s · 3,9 s · 1,8 s · 14,5 s |
 | Pipeline completo (7 experimentos + selección + test) | ~2 min 45 s |
 | `dvc pull` desde el remoto público (clon sin caché) | ~22 s |
-| Prueba de recuperación completa (incluye instalar dependencias) | TIEMPO_RECUPERACION |
+| Prueba de recuperación completa (incluye instalar dependencias) | 166 s (clon, venv, instalación sin caché, dvc pull, descarga y predicción v1/v2) |
 | Memoria máxima al generar evidencias | ~0,8 GB |
 
 ## Limitaciones conocidas
@@ -105,6 +105,8 @@ Equipo: Intel Core i5-1235U (12 hilos), 3,7 GB de RAM asignados a WSL2 (Ubuntu 2
   licencias (scikit-learn BSD-3, pandas BSD-3, MLflow Apache-2.0, DVC Apache-2.0, huggingface_hub Apache-2.0,
   Prefect Apache-2.0). El mirror de datos `Nir-J/ML-Projects` se usó solo como fuente de los CSV, verificada
   por SHA-256.
-- **Contribuciones:**
-  - Jorge Horacio Rojas Criollo: CONTRIBUCION_JORGE
-  - Maria Jimena Castaño Albarracin: CONTRIBUCION_MARIA
+- **Contribuciones:** trabajo conjunto. Jorge Horacio Rojas Criollo y Maria Jimena Castaño Albarracin
+  participaron ambos en todas las etapas —auditoría y preparación de datos, diseño de hipótesis y
+  experimentos, elección de umbral, versionado con Git/DVC/MLflow/Hugging Face, prueba de recuperación e
+  informe—, revisando y validando juntos el trabajo asistido por IA. Ambos pueden explicar las decisiones
+  del proyecto.

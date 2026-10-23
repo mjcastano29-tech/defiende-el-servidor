@@ -1,0 +1,40 @@
+
+=== 2026-10-23T19:40:37Z · 0. Entorno ===
+Linux 6.6.87.2-microsoft-standard-WSL2 x86_64
+Python 3.10.12
+git version 2.34.1
+Destino: <CARPETA_NUEVA>/defiende-el-servidor · revisión: main
+
+=== 2026-10-23T19:40:37Z · 1. Código: git clone + checkout main ===
+commit: bf3bbb572abfc993217c636e9eff8c937d524fa0
+
+=== 2026-10-23T19:40:49Z · 2. Entorno virtual nuevo + dependencias fijadas (sin caché de pip) ===
+Python 3.10.12
+pip 22.0.2 from <CARPETA_NUEVA>/defiende-el-servidor/.venv/lib/python3.10/site-packages/pip (python 3.10)
+
+=== 2026-10-23T19:43:01Z · 3. Datos: dvc pull desde el remoto (caché DVC nueva en <CARPETA_NUEVA>/defiende-el-servidor/.dvc/cache) ===
+hf      
+https://huggingface.co/datasets/Marimar2006/defiende-el-servidor-dvc/resolve/mai
+n       (default)
+A       data/processed/
+A       data/raw/
+11 files fetched and 9 files added
+NUSW-NB15_features.csv: OK
+The UNSW-NB15 description.pdf: OK
+UNSW-NB15_LIST_EVENTS.csv: OK
+UNSW_NB15_testing-set.csv: OK
+UNSW_NB15_training-set.csv: OK
+data/processed/train.parquet  8ade780aaae247e50bcdeeee5c455397782c23dff0101ed72ee21337f5b398ad  OK
+data/processed/val.parquet  d1f3ba61b25ed9daf8c5f819640e5f15e72a4aced330719cf3ab60217f6daeef  OK
+data/processed/test.parquet  f267248a1f7f02e390e95519f640a5842227606676da2fea0c1c814128434755  OK
+data/raw/UNSW_NB15_training-set.csv  bec7dd5ec88dc2a0ccc7a07879d338395ed7421750f675fd0339e07dfe0648fa  OK (anexo del taller)
+data/raw/UNSW_NB15_testing-set.csv  734fe6642edf758f7c94d7d9149426b49d202fe8e7bf0bef47392489c3c0a559  OK (anexo del taller)
+
+=== 2026-10-23T19:43:15Z · 4-5. Modelos: descarga de v1 y v2 por SHA, predicción y comparación ===
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+v1 (v1 (E1_logreg) · <CARPETA_NUEVA>/defiende-el-servidor/.hf-home/defiende-local/Marimar2006--defiende-el-servidor/18ca32ce72d39f02782a38d745185500aa5625cb): model.skops 7cdc9965a67c… · y_pred iguales=True · max|Δscore|=2.22e-16 · OK
+v2 (v2 (E6_hgb_complejo) · <CARPETA_NUEVA>/defiende-el-servidor/.hf-home/defiende-local/Marimar2006--defiende-el-servidor/cab4044d0e3ae66a06ed1227bd4f5384e7808271): model.skops 24b3db2a677a… · y_pred iguales=True · max|Δscore|=1.11e-16 · OK
+Resultado global: OK
+
+=== 2026-10-23T19:43:23Z · Fin ===
+Log: <CARPETA_NUEVA>/recuperacion.log
