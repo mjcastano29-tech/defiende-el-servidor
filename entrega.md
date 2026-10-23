@@ -48,6 +48,9 @@ resultado de test a la model card de v2; los archivos del modelo son idénticos 
 
 ## Acceso al almacenamiento DVC
 
+> **Desde el ZIP de la entrega** (sin carpeta `.git`): ejecutar `git init` antes de `dvc pull`, porque DVC
+> requiere un repositorio Git. Para ver el historial y los tags `v1`/`v2`, clonar desde GitHub.
+
 El remoto por defecto (`.dvc/config`) es HTTP de solo lectura sobre un dataset público de Hugging Face; no
 requiere cuenta ni token. `dvc pull` recupera datos originales, preparados, paquetes v1/v2 y la base de MLflow.
 

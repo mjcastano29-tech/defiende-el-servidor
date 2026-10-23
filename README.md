@@ -44,6 +44,9 @@ dvc pull data/raw.dvc data/processed.dvc       # originales y preparados desde e
 (cd data/raw && sha256sum -c ../SHA256SUMS)    # huellas; coinciden con el anexo del taller
 ```
 
+> **Desde el ZIP de la entrega** (sin carpeta `.git`): ejecutar `git init` antes de `dvc pull`, porque DVC
+> requiere un repositorio Git. Para ver el historial y los tags `v1`/`v2`, clonar desde GitHub.
+
 `dvc pull` sin argumentos recupera además `models/v1`, `models/v2` y `mlflow/` (registros de MLflow).
 Alternativa sin DVC para los dos CSV: `scripts/download_data.sh`.
 
