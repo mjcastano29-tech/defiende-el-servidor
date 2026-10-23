@@ -15,6 +15,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from huggingface_hub import HfApi  # noqa: E402
+from huggingface_hub.errors import HfHubHTTPError  # noqa: E402
 
 from src.config import ROOT  # noqa: E402
 from src.package import load_versions, render_card  # noqa: E402
@@ -34,6 +35,15 @@ def write_revisions(data: dict) -> None:
     REVISIONS.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
 
+def retag(api: HfApi, repo: str, tag: str, revision: str, message: str) -> None:
+    """Crea el tag; si ya existía (republicación antes de la entrega), lo mueve a la nueva revisión."""
+    try:
+        api.delete_tag(repo, tag=tag)
+    except HfHubHTTPError:
+        pass
+    api.create_tag(repo, tag=tag, revision=revision, tag_message=message)
+
+
 def publish_versions(api: HfApi) -> None:
     repo = repo_id(api)
     api.create_repo(repo, private=False, exist_ok=True)
@@ -50,7 +60,7 @@ def publish_versions(api: HfApi) -> None:
         info = api.upload_file(path_or_fileobj=card.encode("utf-8"), path_in_repo="README.md", repo_id=repo,
                                commit_message=f"{name}: model card")
         sha = info.oid
-        api.create_tag(repo, tag=name, revision=sha, tag_message=f"{name}: {cfg['experiment']}", exist_ok=False)
+        retag(api, repo, name, sha, f"{name}: {cfg['experiment']}")
         revisions[name] = {"repo": repo, "url": f"https://huggingface.co/{repo}/tree/{sha}", "sha": sha, "tag": name,
                            "git_tag": name, "experiment": cfg["experiment"],
                            "mlflow_run_id": cfg["lineage"]["mlflow_run_id"], "threshold": cfg["threshold"],
@@ -91,7 +101,7 @@ de test difiere del de entrenamiento (41 % con `sttl=254` frente a 20 %). La cap
     card = render_card(cfg, repo, test_section=section)
     info = api.upload_file(path_or_fileobj=card.encode("utf-8"), path_in_repo="README.md", repo_id=repo,
                            revision="main", commit_message="v2: añadir resultado final de test a la model card")
-    api.create_tag(repo, tag="v2-test-card", revision=info.oid, exist_ok=False)
+    retag(api, repo, "v2-test-card", info.oid, "v2: model card con resultado de test")
     revisions["v2_model_card_test"] = {"repo": repo, "sha": info.oid, "tag": "v2-test-card",
                                        "url": f"https://huggingface.co/{repo}/tree/{info.oid}",
                                        "evaluated_revision": evaluated["sha"],

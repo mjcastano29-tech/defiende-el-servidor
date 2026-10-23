@@ -1,8 +1,8 @@
 {
   "v1": {
     "repo": "Marimar2006/defiende-el-servidor",
-    "url": "https://huggingface.co/Marimar2006/defiende-el-servidor/tree/8e27487d8f00b28756cbaac36d4e43aef9244ea6",
-    "sha": "8e27487d8f00b28756cbaac36d4e43aef9244ea6",
+    "url": "https://huggingface.co/Marimar2006/defiende-el-servidor/tree/18ca32ce72d39f02782a38d745185500aa5625cb",
+    "sha": "18ca32ce72d39f02782a38d745185500aa5625cb",
     "tag": "v1",
     "git_tag": "v1",
     "experiment": "E1_logreg",
@@ -13,8 +13,8 @@
   },
   "v2": {
     "repo": "Marimar2006/defiende-el-servidor",
-    "url": "https://huggingface.co/Marimar2006/defiende-el-servidor/tree/61da5e88c5e61cbd5e334f022321bd4e5a3d7e61",
-    "sha": "61da5e88c5e61cbd5e334f022321bd4e5a3d7e61",
+    "url": "https://huggingface.co/Marimar2006/defiende-el-servidor/tree/cab4044d0e3ae66a06ed1227bd4f5384e7808271",
+    "sha": "cab4044d0e3ae66a06ed1227bd4f5384e7808271",
     "tag": "v2",
     "git_tag": "v2",
     "experiment": "E6_hgb_complejo",
@@ -25,10 +25,10 @@
   },
   "v2_model_card_test": {
     "repo": "Marimar2006/defiende-el-servidor",
-    "sha": "a1cd58f985d2bd740aa747bd43e916bd190523c0",
+    "sha": "eecb7a33a32e757350e6c19e60499c917ba786d0",
     "tag": "v2-test-card",
-    "url": "https://huggingface.co/Marimar2006/defiende-el-servidor/tree/a1cd58f985d2bd740aa747bd43e916bd190523c0",
-    "evaluated_revision": "61da5e88c5e61cbd5e334f022321bd4e5a3d7e61",
+    "url": "https://huggingface.co/Marimar2006/defiende-el-servidor/tree/eecb7a33a32e757350e6c19e60499c917ba786d0",
+    "evaluated_revision": "cab4044d0e3ae66a06ed1227bd4f5384e7808271",
     "model_sha256": "24b3db2a677a40333f04ae24a3368dabea72ed7f963954301f1c749f42132673"
   }
 }

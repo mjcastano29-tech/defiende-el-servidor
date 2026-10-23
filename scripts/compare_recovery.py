@@ -36,10 +36,8 @@ def check_data() -> None:
 
 
 def check_models() -> None:
-    from huggingface_hub import snapshot_download
-
     from src.data import read_raw
-    from src.predict import load, predict_frame
+    from src.predict import download_hf, load, predict_frame
 
     revisions = json.loads((ROOT / "configs" / "hf_revisions.json").read_text(encoding="utf-8"))
     entrada = REC / "entrada_validacion_20.csv"
@@ -50,7 +48,7 @@ def check_models() -> None:
               "tolerancia_abs_score": TOLERANCE, "versiones": {}}
     for v in ("v1", "v2"):
         rev = revisions[v]
-        folder = Path(snapshot_download(rev["repo"], revision=rev["sha"], token=False))
+        folder = download_hf(f"hf://{rev['repo']}@{rev['sha']}")
         model_sha = sha256(folder / "model" / "model.skops")
         model, thr, desc = load(str(folder))
         out = predict_frame(model, thr, sample, "UNSW_NB15_training-set.csv")

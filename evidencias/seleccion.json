@@ -13,8 +13,8 @@
   },
   "huggingface": {
     "repo": "Marimar2006/defiende-el-servidor",
-    "url": "https://huggingface.co/Marimar2006/defiende-el-servidor/tree/61da5e88c5e61cbd5e334f022321bd4e5a3d7e61",
-    "sha": "61da5e88c5e61cbd5e334f022321bd4e5a3d7e61",
+    "url": "https://huggingface.co/Marimar2006/defiende-el-servidor/tree/cab4044d0e3ae66a06ed1227bd4f5384e7808271",
+    "sha": "cab4044d0e3ae66a06ed1227bd4f5384e7808271",
     "tag": "v2",
     "git_tag": "v2",
     "experiment": "E6_hgb_complejo",
@@ -45,8 +45,8 @@
     },
     "huggingface": {
       "repo": "Marimar2006/defiende-el-servidor",
-      "url": "https://huggingface.co/Marimar2006/defiende-el-servidor/tree/8e27487d8f00b28756cbaac36d4e43aef9244ea6",
-      "sha": "8e27487d8f00b28756cbaac36d4e43aef9244ea6",
+      "url": "https://huggingface.co/Marimar2006/defiende-el-servidor/tree/18ca32ce72d39f02782a38d745185500aa5625cb",
+      "sha": "18ca32ce72d39f02782a38d745185500aa5625cb",
       "tag": "v1",
       "git_tag": "v1",
       "experiment": "E1_logreg",

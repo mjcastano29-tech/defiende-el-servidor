@@ -133,3 +133,21 @@ def run_experiment(spec: dict, params: dict) -> dict:
 def predict_scores(model, df) -> np.ndarray:
     """Probabilidad de ataque; usa solo las columnas con que se entrenó el modelo."""
     return model.predict_proba(df[list(model.feature_names_in_)])[:, 1]
+
+
+if __name__ == "__main__":
+    # python -m src.train --experiment E1_logreg   (requiere data/processed: `dvc pull`)
+    import argparse
+
+    from src.config import load_params
+
+    ap = argparse.ArgumentParser(description="Entrena un experimento de params.yaml y lo registra en MLflow")
+    ap.add_argument("--experiment", required=True, help="nombre en params.yaml, p. ej. E1_logreg")
+    name = ap.parse_args().experiment
+    params = load_params()
+    spec = next((s for s in params["experiments"] if s["name"] == name), None)
+    if spec is None:
+        raise SystemExit(f"{name!r} no está en params.yaml: {[s['name'] for s in params['experiments']]}")
+    r = run_experiment(spec, params)
+    print(f"{r['name']} · run {r['run_id']} · umbral {r['threshold']:.6f} · recall {r['val_recall']:.4f} · "
+          f"precision {r['val_precision']:.4f} · FPR {r['val_fpr']:.4f} · macro-F1 {r['val_macro_f1']:.4f}")

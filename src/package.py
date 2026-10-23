@@ -159,7 +159,8 @@ pip install -r requirements.txt huggingface_hub
 import json, mlflow, pandas as pd
 from huggingface_hub import snapshot_download
 
-path = snapshot_download("{hf_repo}", revision="<SHA completo de la revisión>")
+# local_dir: archivos reales (MLflow no carga modelos cuyos archivos son enlaces a la caché)
+path = snapshot_download("{hf_repo}", revision="<SHA completo de la revisión>", local_dir="defiende-modelo")
 cfg = json.load(open(f"{{path}}/config.json"))
 model = mlflow.sklearn.load_model(f"{{path}}/model")          # preprocesamiento + estimador
 X = pd.read_csv("UNSW_NB15_testing-set.csv", encoding="utf-8-sig")

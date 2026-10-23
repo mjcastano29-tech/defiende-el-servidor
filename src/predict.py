@@ -9,6 +9,7 @@ Salida: row_id, [y_true], score_attack, y_pred  (y_pred = 1 si score_attack >= u
 """
 import argparse
 import json
+import os
 from pathlib import Path
 
 import mlflow
@@ -17,6 +18,16 @@ import pandas as pd
 from src.config import ROOT, load_params
 from src.data import ID, TARGET, read_raw
 from src.train import predict_scores, setup_mlflow
+
+
+def download_hf(model_ref: str) -> Path:
+    """Descarga hf://usuario/repo@SHA a una carpeta con archivos reales (no enlaces simbólicos a la caché:
+    MLflow rechaza cargar modelos cuyos archivos apuntan fuera de su carpeta)."""
+    from huggingface_hub import snapshot_download
+    repo, _, revision = model_ref.removeprefix("hf://").partition("@")
+    base = Path(os.environ.get("HF_HOME", Path.home() / ".cache" / "huggingface")) / "defiende-local"
+    target = base / repo.replace("/", "--") / (revision or "main")
+    return Path(snapshot_download(repo, revision=revision or None, local_dir=target))
 
 
 def load(model_ref: str):
@@ -29,10 +40,8 @@ def load(model_ref: str):
               else client.get_model_version(name, ref))
         return mlflow.sklearn.load_model(model_ref), float(mv.tags["threshold"]), f"{name} v{mv.version}"
     if model_ref.startswith("hf://"):
-        from huggingface_hub import snapshot_download
-        repo, _, revision = model_ref.removeprefix("hf://").partition("@")
-        folder = Path(snapshot_download(repo, revision=revision or None))
-        label = f"hf://{repo}@{revision or 'main'}"
+        folder = download_hf(model_ref)
+        label = model_ref
     else:
         folder = Path(model_ref)
         label = str(folder)
