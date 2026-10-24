@@ -1,0 +1,59 @@
+{
+  "run_v2": "b1caa19139d54c2ea08d8984bcbb0399",
+  "flow_run_prefect": "tangible-tody",
+  "eventos": [
+    {
+      "fuente": "git",
+      "evento": "criterio de selección e hipótesis en params.yaml (antes de entrenar)",
+      "referencia": "86d0212e89665064ba618eecc9df2a9cf581c1fa",
+      "hora_utc": "2026-10-14T22:52:53.000+00:00"
+    },
+    {
+      "fuente": "git",
+      "evento": "código con el que se ejecutó el pipeline (runs canónicos)",
+      "referencia": "80cdc9925e7af1d1c1aef0696b019995923ab0c5",
+      "hora_utc": "2026-10-14T22:55:43.000+00:00"
+    },
+    {
+      "fuente": "prefect",
+      "evento": "inicio del flujo (entrenamiento de E0–E6)",
+      "referencia": "tangible-tody",
+      "hora_utc": "2026-10-14T22:56:00.520+00:00"
+    },
+    {
+      "fuente": "mlflow",
+      "evento": "última métrica de validación del run elegido",
+      "referencia": "b1caa19139d54c2ea08d8984bcbb0399",
+      "hora_utc": "2026-10-14T22:58:26.324+00:00"
+    },
+    {
+      "fuente": "prefect",
+      "evento": "fin de comparar-y-congelar (elección escrita en seleccion.json)",
+      "referencia": "comparar-y-congelar-43b",
+      "hora_utc": "2026-10-14T22:58:31.803+00:00"
+    },
+    {
+      "fuente": "prefect",
+      "evento": "inicio de evaluar-test",
+      "referencia": "evaluar-test-c27",
+      "hora_utc": "2026-10-14T22:58:31.808+00:00"
+    },
+    {
+      "fuente": "mlflow",
+      "evento": "primera métrica de test del run elegido",
+      "referencia": "b1caa19139d54c2ea08d8984bcbb0399",
+      "hora_utc": "2026-10-14T22:58:34.773+00:00"
+    },
+    {
+      "fuente": "git",
+      "evento": "commit de resultados: seleccion.json y test_metrics.json",
+      "referencia": "548227a03b993a11377a130bbf0d31e2c21c91f0",
+      "hora_utc": "2026-10-14T23:01:45.000+00:00"
+    }
+  ],
+  "comprobaciones": {
+    "criterio_en_git_antes_de_entrenar": true,
+    "validacion_registrada_antes_que_test_en_mlflow": true,
+    "congelacion_termina_antes_de_evaluar_test_en_prefect": true
+  }
+}

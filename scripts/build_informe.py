@@ -94,6 +94,8 @@ def main():
     P("Código: github.com/mjcastano29-tech/defiende-el-servidor (tags v1, v2) · Modelos: "
       "huggingface.co/Marimar2006/defiende-el-servidor · DVC: huggingface.co/datasets/Marimar2006/"
       "defiende-el-servidor-dvc · Índice de evidencias: entrega.md", SUB)
+    P("Trabajo conjunto, desarrollado en clase desde el equipo de Maria Jimena: por eso los commits y los "
+      "repositorios de Hugging Face aparecen en sus cuentas (mjcastano29-tech, Marimar2006).", SUB)
     s.append(Spacer(1, 4))
     P("<b>Objetivo.</b> Clasificar conexiones de UNSW-NB15 como normal (0) o ataque (1, clase positiva) y, sobre "
       "todo, versionar código, datos, experimentos y modelos de forma que otra persona pueda recuperar una "
@@ -248,6 +250,20 @@ def main():
     s.append(KeepTogether([Image(str(ROOT / "imagenes_resultados/02_test.png"), width=15.5 * cm, height=5.7 * cm)]))
 
     # ---------- 6. Recuperación
+    tl = json.loads((EV / "congelacion" / "linea_de_tiempo.json").read_text(encoding="utf-8"))
+    P("Integridad del test", H2)
+    P("El test se evaluó una sola vez, el 14 de octubre, cuando regía la primera guía; la guía actualizada "
+      "(16 de octubre) no cambió la decisión: v2 es exactamente la elección congelada entonces. La secuencia "
+      "está respaldada por registros fechados exportados en evidencias/congelacion/ y verificables en Git y en "
+      "la base de MLflow recuperable con DVC:")
+    s.append(table([["Hora UTC (2026-10-14)", "Fuente", "Evento"]] + [
+        [e["hora_utc"][11:23], e["fuente"], e["evento"]] for e in tl["eventos"]], [3.0, 1.8, 12.6]))
+    s.append(Spacer(1, 4))
+    P("No existe un commit de seleccion.json anterior al test, porque elección y evaluación ocurrieron en la "
+      "misma ejecución del pipeline; no se reconstruyó ni se fechó a posteriori ningún commit. La re-ejecución "
+      "del 16 de octubre y el recálculo de las evidencias usan el mismo modelo congelado y dan cifras idénticas; "
+      "el diagnóstico de otros modelos en test es posterior, está declarado y no modificó la selección.")
+
     P("6. Recuperación de versiones", H2)
     rv1, rv2 = rec["versiones"]["v1"], rec["versiones"]["v2"]
     P("En una carpeta y un entorno virtual nuevos, sin cachés de pip, DVC ni Hugging Face (scripts/"

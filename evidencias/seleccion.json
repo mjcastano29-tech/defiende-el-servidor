@@ -86,6 +86,7 @@
     },
     "mlflow": "en el run b1caa191 la métrica val_recall se registró 22:58:26 UTC y test_recall 22:58:34 UTC",
     "git_commit_resultados": "548227a (2026-10-14) — reports/seleccion.json y reports/test_metrics.json",
+    "evidencia_exportada": "evidencias/congelacion/ (línea de tiempo Git/MLflow/Prefect, historial de métricas del run con timestamps y tareas de Prefect; scripts/export_freeze_evidence.py)",
     "nota": "La primera guía (2026-10-02) no pedía v1/v2; la elección de E6 se hizo con validación y no se modificó al recibir la guía actualizada (2026-10-16). v1 no se usó para elegir y su diagnóstico en test (reports/analisis_post_hoc.csv) es posterior y declarado como tal."
   },
   "resultado_test": {

@@ -39,6 +39,7 @@ resultado de test a la model card de v2; los archivos del modelo son idénticos 
 | Auditoría de datos y particiones | [evidencias/auditoria.json](evidencias/auditoria.json) · asignación por fila en [evidencias/asignacion_splits.csv](evidencias/asignacion_splits.csv) |
 | Tabla de experimentos | [evidencias/experimentos.csv](evidencias/experimentos.csv) |
 | Selección congelada | [evidencias/seleccion.json](evidencias/seleccion.json) |
+| Congelación anterior al test (registros fechados) | [evidencias/congelacion/](evidencias/congelacion/) (línea de tiempo Git/MLflow/Prefect) |
 | Métricas de test | [evidencias/metricas-test.json](evidencias/metricas-test.json) |
 | Predicciones de test (82.332 filas) | [evidencias/predicciones-test.csv](evidencias/predicciones-test.csv) |
 | Registros de MLflow exportados | [evidencias/mlflow/](evidencias/mlflow/) (`runs.csv`, `runs/<run_id>.json`, `models/`, `LEEME.md`) |
@@ -92,8 +93,13 @@ Equipo: Intel Core i5-1235U (12 hilos), 3,7 GB de RAM asignados a WSL2 (Ubuntu 2
   (41 % con `sttl=254` frente a 20 %). El umbral debe recalibrarse con tráfico normal de la red de destino.
 - 10,37 % de las filas de test tienen entradas idénticas a filas de entrenamiento/validación; sin ellas, el
   resultado apenas cambia (recall 0,9634, FPR 0,1773).
-- El test se evaluó el 2026-10-14, con la primera guía. La selección se hizo solo con validación y no se
-  modificó al recibir la guía actualizada; ver `congelacion_previa_al_test` en `evidencias/seleccion.json`.
+- **Integridad del test.** El test se evaluó una sola vez, el 2026-10-14, cuando regía la primera guía. El
+  criterio estaba en Git antes de entrenar (`86d0212`, 22:52:53 UTC) y el pipeline congeló la elección antes de
+  tocar el test (Prefect: `comparar-y-congelar` termina 22:58:31.803, `evaluar-test` empieza 22:58:31.808; MLflow:
+  última métrica de validación 22:58:26, primera de test 22:58:34). La guía actualizada (2026-10-16) no cambió
+  la decisión: v2 es exactamente esa elección. No existe un commit de `seleccion.json` anterior al test porque
+  elección y evaluación ocurrieron en la misma ejecución; los registros fechados están exportados en
+  `evidencias/congelacion/`.
 - El diagnóstico post-hoc de E1/E3/E4 en test (`reports/analisis_post_hoc.csv`) es posterior a la selección
   y no la modificó.
 
@@ -113,3 +119,7 @@ Equipo: Intel Core i5-1235U (12 hilos), 3,7 GB de RAM asignados a WSL2 (Ubuntu 2
   experimentos, elección de umbral, versionado con Git/DVC/MLflow/Hugging Face, prueba de recuperación e
   informe—, revisando y validando juntos el trabajo asistido por IA. Ambos pueden explicar las decisiones
   del proyecto.
+- **Equipo de trabajo:** desarrollamos el taller juntos en clase desde el computador de Maria Jimena. Por eso
+  todos los commits aparecen con su usuario de GitHub (`mjcastano29-tech`) y los repositorios de Hugging Face
+  están en su cuenta (`Marimar2006`); la autoría en las plataformas no refleja el reparto del trabajo, que fue
+  conjunto.

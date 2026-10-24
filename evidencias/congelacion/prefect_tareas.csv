@@ -1,0 +1,13 @@
+flow_run,flow_run_id,tarea,estado,inicio_utc,fin_utc
+tangible-tody,3c728945-891c-4cbf-9d5e-65411829ad37,preparar-datos-ad4,Completed,2026-10-14 22:56:00.520352,2026-10-14 22:56:17.097131
+tangible-tody,3c728945-891c-4cbf-9d5e-65411829ad37,entrenar-E0_referencia,Completed,2026-10-14 22:56:17.103304,2026-10-14 22:56:34.906810
+tangible-tody,3c728945-891c-4cbf-9d5e-65411829ad37,entrenar-E1_logreg,Completed,2026-10-14 22:56:34.923703,2026-10-14 22:57:09.346862
+tangible-tody,3c728945-891c-4cbf-9d5e-65411829ad37,entrenar-E2_logreg_balanceada,Completed,2026-10-14 22:57:09.353185,2026-10-14 22:57:34.651417
+tangible-tody,3c728945-891c-4cbf-9d5e-65411829ad37,entrenar-E3_hgb,Completed,2026-10-14 22:57:34.657449,2026-10-14 22:57:46.120324
+tangible-tody,3c728945-891c-4cbf-9d5e-65411829ad37,entrenar-E4_hgb_sin_ttl,Completed,2026-10-14 22:57:46.126471,2026-10-14 22:57:58.175765
+tangible-tody,3c728945-891c-4cbf-9d5e-65411829ad37,entrenar-E5_hgb_sin_duplicados,Completed,2026-10-14 22:57:58.186154,2026-10-14 22:58:07.078132
+tangible-tody,3c728945-891c-4cbf-9d5e-65411829ad37,entrenar-E6_hgb_complejo,Completed,2026-10-14 22:58:07.081772,2026-10-14 22:58:30.773185
+tangible-tody,3c728945-891c-4cbf-9d5e-65411829ad37,comparar-y-congelar-43b,Completed,2026-10-14 22:58:30.785488,2026-10-14 22:58:31.803869
+tangible-tody,3c728945-891c-4cbf-9d5e-65411829ad37,evaluar-test-c27,Completed,2026-10-14 22:58:31.808895,2026-10-14 22:58:35.074182
+tangible-tody,3c728945-891c-4cbf-9d5e-65411829ad37,registrar-modelo-d1b,Completed,2026-10-14 22:58:35.079001,2026-10-14 22:58:42.889302
+tangible-tody,3c728945-891c-4cbf-9d5e-65411829ad37,versionar-dvc-46d,Completed,2026-10-14 22:58:42.893058,2026-10-14 22:58:45.359786
